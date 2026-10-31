@@ -163,6 +163,138 @@ local function createBossBlip()
 end
 
 -- ------------------------------------------------------------
+--  Job locations (blinking blips + random customer cars)
+-- ------------------------------------------------------------
+local jobBlips = {}
+local jobCars = {}
+
+-- Accepts "x, y, z, heading" strings or vec4 values
+local function parseLocation(loc)
+    if type(loc) == 'string' then
+        local x, y, z, heading = loc:match('^%s*([^,]+),%s*([^,]+),%s*([^,]+),%s*([^,]+)%s*$')
+
+        if not x then
+            x, y, z = loc:match('^%s*([^,]+),%s*([^,]+),%s*([^,]+)%s*$')
+        end
+
+        if not x then return end
+        return tonumber(x), tonumber(y), tonumber(z), tonumber(heading) or 0.0
+    end
+
+    if type(loc) == 'table' then
+        return loc.x, loc.y, loc.z, loc.w or loc.heading or 0.0
+    end
+
+    -- vector4
+    return loc.x, loc.y, loc.z, loc.w or 0.0
+end
+
+local function createJobBlips()
+    local carCfg = Config.Car or {}
+    local blipCfg = carCfg.blip or {}
+
+    for _, loc in ipairs(carCfg.locations or {}) do
+        local x, y, z = parseLocation(loc)
+
+        if x then
+            local blip = AddBlipForCoord(x, y, z)
+            SetBlipSprite(blip, blipCfg.sprite or 100)
+            SetBlipDisplay(blip, 4)
+            SetBlipColour(blip, blipCfg.color or 37)
+            SetBlipScale(blip, blipCfg.scale or 0.9)
+            SetBlipAsShortRange(blip, blipCfg.shortRange == true)
+
+            -- Blink while the job is active
+            if blipCfg.flash ~= false then
+                SetBlipFlashes(blip, true)
+            end
+
+            BeginTextCommandSetBlipName('STRING')
+            AddTextComponentString(blipCfg.name or 'Car Wash Customer')
+            EndTextCommandSetBlipName(blip)
+
+            jobBlips[#jobBlips + 1] = blip
+        end
+    end
+end
+
+local function spawnJobCar(loc)
+    if not jobActive then return end
+
+    local carCfg = Config.Car or {}
+    local models = carCfg.models
+    if not models or #models == 0 then return end
+
+    local x, y, z, heading = parseLocation(loc)
+    if not x then return end
+
+    -- Random model from the config list
+    local model = models[math.random(#models)]
+    if type(model) == 'string' then model = GetHashKey(model) end
+
+    RequestModel(model)
+    local timeout = GetGameTimer() + 5000
+    while not HasModelLoaded(model) and GetGameTimer() < timeout do
+        Wait(10)
+    end
+
+    if not HasModelLoaded(model) then
+        print('^1[car_wash_job] Failed to load car model^7')
+        return
+    end
+
+    if not jobActive then
+        SetModelAsNoLongerNeeded(model)
+        return
+    end
+
+    local vehicle = CreateVehicle(model, x, y, z, heading or 0.0, false, false)
+    SetModelAsNoLongerNeeded(model)
+
+    if vehicle and vehicle ~= 0 then
+        SetVehicleOnGroundProperly(vehicle)
+        SetEntityAsMissionEntity(vehicle, true, true)
+        SetVehicleHasBeenOwnedByPlayer(vehicle, true)
+        SetVehicleDoorsLocked(vehicle, 1)
+        SetVehicleEngineOn(vehicle, true, true, false)
+
+        jobCars[#jobCars + 1] = vehicle
+    end
+end
+
+local function removeJobEntities()
+    for i = #jobBlips, 1, -1 do
+        local blip = jobBlips[i]
+        if DoesBlipExist(blip) then RemoveBlip(blip) end
+        jobBlips[i] = nil
+    end
+
+    for i = #jobCars, 1, -1 do
+        local vehicle = jobCars[i]
+        if DoesEntityExist(vehicle) then
+            SetEntityAsMissionEntity(vehicle, true, true)
+            DeleteVehicle(vehicle)
+        end
+        jobCars[i] = nil
+    end
+end
+
+local function startJobLocations()
+    removeJobEntities()
+    createJobBlips()
+
+    local locations = (Config.Car or {}).locations or {}
+
+    -- Spawn in a thread so the target callback never blocks
+    CreateThread(function()
+        for _, loc in ipairs(locations) do
+            if not jobActive then break end
+            spawnJobCar(loc)
+        end
+    end)
+end
+
+-- ------------------------------------------------------------
 --  Continuous dialogue (voice + mouth movement)
 -- ------------------------------------------------------------
 local function currentLines()
@@ -253,6 +385,9 @@ local function startCarWashJob()
     -- Hook for other scripts: listen to 'car_wash_job:client:startJob'
     TriggerEvent('car_wash_job:client:startJob')
 
+    -- Blinking blips + random car at every configured location
+    startJobLocations()
+
     local cfg = Config.Boss.dialogue
     if cfg and cfg.greetOnInteract ~= false then
         playDialogue(pickLine())
@@ -267,6 +402,9 @@ local function stopCarWashJob()
 
     -- Hook for other scripts: listen to 'car_wash_job:client:stopJob'
     TriggerEvent('car_wash_job:client:stopJob')
+
+    -- Remove job blips and despawn the spawned cars
+    removeJobEntities()
 
     local cfg = Config.Boss.dialogue
     if cfg and cfg.greetOnInteract ~= false then
@@ -377,6 +515,7 @@ end)
 
 AddEventHandler('onResourceStop', function(res)
     if res ~= GetCurrentResourceName() then return end
+    removeJobEntities()
     if bossBlip and DoesBlipExist(bossBlip) then
         RemoveBlip(bossBlip)
         bossBlip = nil

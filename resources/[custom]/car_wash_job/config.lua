@@ -110,3 +110,36 @@ Config.Boss = {
         stoppedMessage = 'You stopped the car wash job.',
     },
 }
+
+
+
+
+
+
+
+-- ============================================================
+--  Car Wash Job - Cars & Locations
+-- ============================================================
+Config.Car = {
+    -- Spawn a random car from this list at every location when the job starts
+    models = {
+        'comet',
+        'tiptruck2',
+        'acty',
+    },
+
+    -- Job locations: "x, y, z, heading" (vec4(...) also works)
+    locations = {
+        '280.2333, -1349.6655, 31.9351, 143.0714',
+    },
+
+    -- Blips shown (blinking) at every location while the job is active
+    blip = {
+        sprite = 100,           -- car wash icon
+        color = 37,             -- light blue
+        scale = 0.9,
+        shortRange = false,     -- stays visible on the whole map
+        name = 'Car Wash Customer',
+        flash = true,           -- make it blink
+    },
+}
