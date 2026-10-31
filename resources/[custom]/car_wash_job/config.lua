@@ -151,8 +151,20 @@ Config.Car.locations = {
 Config.Carwash = {}
 
 Config.Carwash.locations = {
-    '21.9085, -1391.9541, 29.3285, 267.8849',
+    '21.9085, -1391.9541, 29.3285, 267.8849', -- Strawberry (yours)
+    '-699.84, -934.0, 19.0, 0.0',             -- Little Seoul
+    '-216.4, 6199.92, 31.48, 0.0',            -- Paleto Bay
     -- add more locations here
+}
+
+-- Blips shown at the wash spots while you drive the job car
+Config.Carwash.blip = {
+    sprite = 100,
+    color = 37,
+    scale = 0.9,
+    shortRange = false,
+    name = 'Wash Car Here',
+    flash = true,
 }
 
 -- Auto-wash settings
