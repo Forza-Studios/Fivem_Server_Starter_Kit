@@ -4,10 +4,10 @@
   <residentAnims />
   <InitDatas>
     <Item>
-      <modelName>jiuhao_e300_1_bsgta</modelName>
-      <txdName>jiuhao_e300_1_bsgta</txdName>
-      <handlingId>jiuhao_e300_1_bsgta</handlingId>
-      <gameName>jiuhao_e300_1_bsgta</gameName>
+      <modelName>ev_scooty</modelName>
+      <txdName>ev_scooty</txdName>
+      <handlingId>ev_scooty</handlingId>
+      <gameName>ev_scooty</gameName>
       <vehicleMakeName>PEGASSI</vehicleMakeName>
       <expressionDictName>null</expressionDictName>
       <expressionName>null</expressionName>
@@ -15,7 +15,7 @@
       <animConvRoofName>null</animConvRoofName>
       <animConvRoofWindowsAffected />
       <ptfxAssetName>null</ptfxAssetName>
-      <audioNameHash>bmws1krreng</audioNameHash>
+      <audioNameHash>voltic</audioNameHash>
       <layout>LAYOUT_BIKE_SCOOTER</layout>
       <coverBoundOffsets>BIKE_COVER_OFFSET_INFO</coverBoundOffsets>
 	  <POVTuningInfo>FAGGIO3_POV_TUNING</POVTuningInfo>
@@ -117,7 +117,7 @@
 	<txdRelationships>
      <Item>
       <parent>vehicles_biker_shared</parent>
-      <child>jiuhao_e300_1_bsgta</child>
+      <child>ev_scooty</child>
     </Item> 
 	  </txdRelationships>
 </CVehicleModelInfo__InitDataList>

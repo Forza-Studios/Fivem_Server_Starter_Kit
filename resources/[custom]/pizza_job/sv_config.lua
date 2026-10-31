@@ -25,6 +25,6 @@ return {
         vec4(1245.4, -1626.89, 53.28, 217.08),
         vec4(315.13, -128.33, 69.98, 161.4),
     },
-    Vehicle = `jiuhao_e300_1_bsgta`,
+    Vehicle = `ev_scooty`,
     VehicleSpawn = vec4(535.3, 95.58, 96.32, 159.15),
 }

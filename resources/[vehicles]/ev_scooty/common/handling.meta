@@ -3,7 +3,7 @@
 <CHandlingDataMgr>
   <HandlingData>
     <Item type="CHandlingData">
-      <handlingName>jiuhao_e300_1_bsgta</handlingName>
+      <handlingName>ev_scooty</handlingName>
       <fMass value="230.000000" />
       <fInitialDragCoeff value="8.000000" />
       <fPercentSubmerged value="95.000000" />
