@@ -1,6 +1,8 @@
 local bossPed
 local bossBlip
 local jobActive = false
+local phoneProp
+local phoneActive = false
 
 -- ------------------------------------------------------------
 --  Notification helper (uses ox_lib, with a native fallback)
@@ -18,6 +20,86 @@ local function notify(message, nType)
         AddTextComponentString(message)
         DrawNotification(false, true)
     end
+end
+
+-- ------------------------------------------------------------
+--  Phone call animation (phone held to his ear, not looking at it)
+-- ------------------------------------------------------------
+local function deletePhoneProp()
+    if phoneProp and DoesEntityExist(phoneProp) then
+        DetachEntity(phoneProp, true, true)
+        DeleteEntity(phoneProp)
+    end
+    phoneProp = nil
+end
+
+local function playPhoneCall()
+    -- Already on the phone — don't restart the animation every cycle
+    if phoneActive then return end
+
+    local phoneCfg = Config.Boss.phone or {}
+    local dict = phoneCfg.dict or 'amb@world_human_stand_mobile@male@standing@call@base'
+    local clip = phoneCfg.clip or 'base'
+
+    -- Drop whatever he was doing before (clipboard, smoke, ...)
+    ClearPedTasks(bossPed)
+    deletePhoneProp()
+
+    RequestAnimDict(dict)
+    local timeout = GetGameTimer() + 5000
+    while not HasAnimDictLoaded(dict) and GetGameTimer() < timeout do
+        Wait(10)
+    end
+
+    if not HasAnimDictLoaded(dict) then
+        print('^1[car_wash_job] Failed to load phone call animation^7')
+        return
+    end
+
+    -- Loop the "standing, phone to ear" call animation
+    TaskPlayAnim(bossPed, dict, clip, 8.0, 1.0, -1, 1, 0.0, false, false, false)
+
+    -- Give him a phone in his right hand
+    local propModel = phoneCfg.prop or `prop_npc_phone_02`
+    if type(propModel) == 'string' then propModel = GetHashKey(propModel) end
+
+    RequestModel(propModel)
+    local propTimeout = GetGameTimer() + 5000
+    while not HasModelLoaded(propModel) and GetGameTimer() < propTimeout do
+        Wait(10)
+    end
+
+    if HasModelLoaded(propModel) then
+        local coords = GetEntityCoords(bossPed)
+        phoneProp = CreateObject(propModel, coords.x, coords.y, coords.z, true, true, false)
+
+        local bone = GetPedBoneIndex(bossPed, phoneCfg.bone or 28422)
+        local off = phoneCfg.offset or vector3(0.0, 0.0, 0.0)
+        local rot = phoneCfg.rotation or vector3(0.0, 0.0, 0.0)
+
+        AttachEntityToEntity(phoneProp, bossPed, bone,
+            off.x, off.y, off.z,
+            rot.x, rot.y, rot.z,
+            true, true, false, true, 2, true)
+
+        SetModelAsNoLongerNeeded(propModel)
+    end
+
+    phoneActive = true
+end
+
+-- Plays either a scenario animation or the special 'PHONE_CALL' animation
+local playAnimation
+
+playAnimation = function(name)
+    if name == 'PHONE_CALL' then
+        playPhoneCall()
+        return
+    end
+
+    phoneActive = false
+    deletePhoneProp()
+    TaskStartScenarioInPlace(bossPed, name, 0, true)
 end
 
 -- ------------------------------------------------------------
@@ -56,7 +138,7 @@ local function spawnBoss()
         -- Start the first animation
         local anims = Config.Boss.animations
         if anims and #anims > 0 then
-            TaskStartScenarioInPlace(bossPed, anims[1], 0, true)
+            playAnimation(anims[1])
         end
     end
 end
@@ -83,13 +165,21 @@ end
 -- ------------------------------------------------------------
 --  Continuous dialogue (voice + mouth movement)
 -- ------------------------------------------------------------
+local function currentLines()
+    local cfg = Config.Boss.dialogue
+    if phoneActive and cfg.phoneLines and #cfg.phoneLines > 0 then
+        return cfg.phoneLines
+    end
+    return cfg.lines
+end
+
 local function playDialogue(speechName)
     local cfg = Config.Boss.dialogue
     if not cfg or cfg.enabled == false then return end
     if not DoesEntityExist(bossPed) then return end
 
     if not speechName then
-        local lines = cfg.lines
+        local lines = currentLines()
         if not lines or #lines == 0 then return end
         speechName = lines[math.random(#lines)]
     end
@@ -114,7 +204,7 @@ local lastLine
 
 -- Pick a random line and never repeat the same one twice in a row
 local function pickLine()
-    local lines = Config.Boss.dialogue.lines
+    local lines = currentLines()
     if not lines or #lines == 0 then return end
 
     if #lines == 1 then return lines[1] end
@@ -244,10 +334,18 @@ local function animateBoss()
         Wait(math.random(interval.min, interval.max))
 
         if DoesEntityExist(bossPed) then
+            -- If the phone animation was interrupted, allow it to start again
+            local phoneCfg = Config.Boss.phone
+            if phoneActive and phoneCfg and phoneCfg.dict and phoneCfg.clip
+                and not IsEntityPlayingAnim(bossPed, phoneCfg.dict, phoneCfg.clip, 3) then
+                phoneActive = false
+                deletePhoneProp()
+            end
+
             local anims = Config.Boss.animations
             if anims and #anims > 0 then
                 local scenario = anims[math.random(#anims)]
-                TaskStartScenarioInPlace(bossPed, scenario, 0, true)
+                playAnimation(scenario)
             end
         end
     end
@@ -285,6 +383,7 @@ AddEventHandler('onResourceStop', function(res)
     end
     if bossPed and DoesEntityExist(bossPed) then
         StopPedSpeaking(bossPed, true)
+        deletePhoneProp()
         DeleteEntity(bossPed)
     end
 end)

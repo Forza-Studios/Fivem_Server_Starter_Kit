@@ -22,10 +22,19 @@ Config.Boss = {
 
     -- Scenario animations the boss cycles through.
     -- The first one is played on spawn.
+    -- 'PHONE_CALL' is a special entry -> he holds the phone to his ear and talks on it.
     animations = {
-       -- 'WORLD_HUMAN_CLIPBOARD',   -- holding a clipboard
-        'WORLD_HUMAN_STAND_MOBILE', -- checking his phone
-       -- 'WORLD_HUMAN_SMOKING',      -- taking a smoke break
+        'PHONE_CALL', -- talking on his phone
+    },
+
+    -- Animation + prop used by the 'PHONE_CALL' entry above
+    phone = {
+        dict = 'amb@world_human_stand_mobile@male@standing@call@base',
+        clip = 'base',
+        prop = `prop_npc_phone_02`,
+        bone = 28422,                        -- right hand
+        offset = vector3(0.0, 0.0, 0.0),
+        rotation = vector3(0.0, 0.0, 0.0),
     },
 
     -- How often (in milliseconds) the boss switches animation
@@ -48,9 +57,7 @@ Config.Boss = {
         -- These are all valid GTA V business ped voice sets.
         voices = {
             'A_M_M_BUSINESS_01_WHITE_FULL_01',
-            'A_M_M_BUSINESS_01_BLACK_FULL_01',
-            'A_M_Y_BUSINESS_01_WHITE_FULL_01',
-            'A_M_Y_BUSINESS_02_WHITE_FULL_01',
+           
         },
 
         -- Real GTA V ambient speech lines (shared by all voices above)
@@ -72,6 +79,20 @@ Config.Boss = {
             'APOLOGY_NO_TROUBLE',
             'KIFFLOM_GREET',
             'WON_DISPUTE',
+        },
+
+        -- Lines used while he is on the phone (real GTA phone-call dialogue)
+        phoneLines = {
+            'PHONE_CONV1_INTRO',
+            'PHONE_CONV1_CHAT1',
+            'PHONE_CONV1_CHAT2',
+            'PHONE_CONV1_CHAT3',
+            'PHONE_CONV1_OUTRO',
+            'PHONE_CONV2_INTRO',
+            'PHONE_CONV2_CHAT1',
+            'PHONE_CONV2_CHAT2',
+            'PHONE_CONV2_CHAT3',
+            'PHONE_CONV2_OUTRO',
         },
     },
 
