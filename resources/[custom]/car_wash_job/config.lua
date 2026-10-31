@@ -136,7 +136,7 @@ Config.Car.models = {
 
 -- Spawn spots: "x, y, z, heading" (vec4(...) also works)
 Config.Car.locations = {
-    '-28.1574, -1082.2430, 26.6245, 61.9880',
+    '-323.2480, -949.6726, 31.0806, 253.6900',
     -- add more locations here
 }
 
@@ -152,6 +152,25 @@ Config.Car.locations = {
 -- After a washed car is brought back to the spot it was taken from, that
 -- spot disappears for this many seconds (24 hours). Saved on the server.
 Config.Cooldown = 24 * 60 * 60
+
+-- Money paid when a washed car is brought back to its spot
+Config.Payout = {
+    amount = 500,
+    account = 'cash', -- 'cash' or 'bank'
+}
+
+-- Countdown shown on screen while you are in the job car.
+-- It starts when you first get in; at zero the car is taken back, no payout.
+Config.Timer = {
+    enabled = true,
+    duration = 5 * 60,   -- seconds (5 minutes)
+    warnAt = 60,         -- turns red when this many seconds are left
+    label = 'Time left',
+    expiredMessage = "Time's up! The car was taken back.",
+    position = { x = 0.5, y = 0.04 }, -- screen position (0.0 - 1.0)
+    font = 4,
+    scale = 0.7,
+}
 
 -- Route back to the pickup spot after the wash
 Config.Return = {

@@ -169,6 +169,7 @@ local jobBlips = {}
 local jobCars = {}
 local jobCarSet = {}
 local jobCarSpot = {}      -- vehicle -> the spot it was taken from
+local carDeadlines = {}    -- vehicle -> GetGameTimer() value when its time runs out
 local cleanCars = {}       -- vehicles that finished washing (head back to their spot)
 local completedSpots = {}  -- spot key -> true while the spot is on cooldown
 local cooldownsLoaded = false
@@ -366,6 +367,7 @@ local function removeJobEntities()
     washedCars = {}
     cleanCars = {}
     jobCarSpot = {}
+    carDeadlines = {}
 
     for i = #jobCars, 1, -1 do
         local vehicle = jobCars[i]
@@ -443,8 +445,30 @@ local function startBlipSwitch()
     end)
 end
 
--- Bring a washed car back to its spot: the car is handed in and the spot
--- goes on cooldown (stored on the server).
+-- Gets the player out of a job car and deletes it
+local function discardJobCar(vehicle)
+    local ped = PlayerPedId()
+
+    if IsPedInVehicle(ped, vehicle, false) then
+        TaskLeaveVehicle(ped, vehicle, 0)
+        local timeout = GetGameTimer() + 4000
+        while IsPedInVehicle(ped, vehicle, false) and GetGameTimer() < timeout do
+            Wait(100)
+        end
+    end
+
+    jobCarSet[vehicle] = nil
+    jobCarSpot[vehicle] = nil
+    cleanCars[vehicle] = nil
+    carDeadlines[vehicle] = nil
+    if DoesEntityExist(vehicle) then
+        SetEntityAsMissionEntity(vehicle, true, true)
+        DeleteVehicle(vehicle)
+    end
+end
+
+-- Bring a washed car back to its spot: the car is handed in, the payout is
+-- paid and the spot goes on cooldown (stored on the server).
 local function startAutoReturn()
     CreateThread(function()
         local radius = (Config.Return and Config.Return.radius) or 5.0
@@ -459,24 +483,74 @@ local function startAutoReturn()
                 completedSpots[origin.key] = true
                 TriggerServerEvent('car_wash_job:server:completeSpot', origin.key)
 
-                TaskLeaveVehicle(ped, vehicle, 0)
-                local timeout = GetGameTimer() + 4000
-                while IsPedInVehicle(ped, vehicle, false) and GetGameTimer() < timeout do
-                    Wait(100)
-                end
+                discardJobCar(vehicle)
 
-                jobCarSet[vehicle] = nil
-                jobCarSpot[vehicle] = nil
-                cleanCars[vehicle] = nil
-                if DoesEntityExist(vehicle) then
-                    SetEntityAsMissionEntity(vehicle, true, true)
-                    DeleteVehicle(vehicle)
-                end
-
-                notify('Car returned! This spot is available again in 24 hours.', 'success')
+                notify(('Car returned! You earned $%d.'):format((Config.Payout and Config.Payout.amount) or 0), 'success')
             end
 
             Wait(500)
+        end
+    end)
+end
+
+-- Countdown shown on screen while sitting in a job car. The clock starts the
+-- first time you get in; when it hits zero the car is taken away (no payout,
+-- the spot stays available).
+local function drawTimerText(text, red)
+    local cfg = Config.Timer or {}
+    local pos = cfg.position or { x = 0.5, y = 0.04 }
+
+    SetTextFont(cfg.font or 4)
+    SetTextScale(0.0, cfg.scale or 0.7)
+    if red then
+        SetTextColour(255, 70, 70, 255)
+    else
+        SetTextColour(255, 255, 255, 255)
+    end
+    SetTextCentre(true)
+    SetTextOutline()
+    BeginTextCommandDisplayText('STRING')
+    AddTextComponentSubstringPlayerName(text)
+    EndTextCommandDisplayText(pos.x, pos.y)
+end
+
+local function startCarTimer()
+    local cfg = Config.Timer or {}
+    if cfg.enabled == false then return end
+
+    CreateThread(function()
+        local duration = (cfg.duration or 300) * 1000
+
+        while jobActive do
+            local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
+
+            if vehicle ~= 0 and jobCarSet[vehicle] then
+                if not carDeadlines[vehicle] then
+                    carDeadlines[vehicle] = GetGameTimer() + duration
+                end
+
+                local remaining = carDeadlines[vehicle] - GetGameTimer()
+
+                if remaining <= 0 then
+                    notify(cfg.expiredMessage or "Time's up! The car was taken back.", 'error')
+                    discardJobCar(vehicle)
+                else
+                    local seconds = math.ceil(remaining / 1000)
+                    drawTimerText(('%s %02d:%02d'):format(cfg.label or 'Time left', seconds // 60, seconds % 60),
+                        seconds <= (cfg.warnAt or 60))
+                end
+
+                Wait(0)
+            else
+                -- Time keeps running while you are out of the car
+                for veh, deadline in pairs(carDeadlines) do
+                    if GetGameTimer() >= deadline and not IsPedInVehicle(PlayerPedId(), veh, false) then
+                        notify(cfg.expiredMessage or "Time's up! The car was taken back.", 'error')
+                        discardJobCar(veh)
+                    end
+                end
+                Wait(500)
+            end
         end
     end)
 end
@@ -711,6 +785,9 @@ local function startJobLocations()
 
         -- Hand the car in when it is back at its spot
         startAutoReturn()
+
+        -- Countdown while you have the car
+        startCarTimer()
     end)
 end
 

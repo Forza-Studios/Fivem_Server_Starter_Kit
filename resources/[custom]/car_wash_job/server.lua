@@ -44,4 +44,11 @@ RegisterNetEvent('car_wash_job:server:completeSpot', function(key)
 
     cooldowns[key] = os.time() + (Config.Cooldown or 86400)
     save()
+
+    -- Pay the player (once per spot per cooldown, so the event can't be farmed)
+    local payout = Config.Payout or {}
+    local amount = payout.amount or 0
+    if amount > 0 then
+        exports.qbx_core:AddMoney(source, payout.account or 'cash', amount, 'car-wash-job')
+    end
 end)
