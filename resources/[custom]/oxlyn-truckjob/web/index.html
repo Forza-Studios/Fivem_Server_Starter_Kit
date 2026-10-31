@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oxlyn Truck Job</title>
+
+    <!-- Font Awesome 7 Free — bundled locally (no CDN). fa-pro-compat.css maps
+         the Pro-only styles/icons this UI uses onto the Free set. -->
+    <link rel="stylesheet" href="fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="fontawesome/css/fa-pro-compat.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body data-theme="dark">
+
+<!-- Toasts -->
+<div id="toasts" class="toasts" aria-live="polite"></div>
+
+<!-- =================================================================
+     Floating world icon (3D-anchored)
+     ================================================================= -->
+<div id="world-icon" aria-hidden="true">
+    <div class="wi-card">
+        <span class="wi-shine" aria-hidden="true"></span>
+        <span class="wi-pulse" aria-hidden="true"></span>
+        <i id="wi-svg" class="fa-sharp fa-solid fa-truck-fast wi-svg"></i>
+    </div>
+    <span class="wi-arrow"><i class="fa-sharp fa-solid fa-caret-down"></i></span>
+</div>
+
+<!-- =================================================================
+     Loading / unloading progress (bottom-center)
+     ================================================================= -->
+<div id="progress" class="hidden" aria-hidden="true">
+    <div class="pg-card">
+        <div class="pg-ring" aria-hidden="true">
+            <svg viewBox="0 0 44 44" class="pg-ring-svg">
+                <defs>
+                    <linearGradient id="pgRingGrad" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%"   stop-color="#3b82f6"/>
+                        <stop offset="55%"  stop-color="#60a5fa"/>
+                        <stop offset="100%" stop-color="#bae6fd"/>
+                    </linearGradient>
+                </defs>
+                <circle class="pg-ring-track" cx="22" cy="22" r="19" />
+                <circle id="pg-ring-fill" class="pg-ring-fill" cx="22" cy="22" r="19" />
+            </svg>
+            <i class="pg-ring-ico fa-sharp fa-solid fa-truck-ramp-box"></i>
+        </div>
+        <div class="pg-text">
+            <div class="pg-label" id="pg-label">A carregar...</div>
+            <div class="pg-bar"><span id="pg-fill" class="pg-fill"></span></div>
+            <div class="pg-meta">
+                <span class="pg-step" id="pg-step">A processar</span>
+                <span class="pg-pct mono" id="pg-sub">0%</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- =================================================================
+     Bottom-center interact pill
+     ================================================================= -->
+<div id="interact-prompt" aria-hidden="true">
+    <div class="ip-card">
+        <span class="ip-shine" aria-hidden="true"></span>
+        <kbd class="ip-key" id="ip-key">E</kbd>
+        <span class="ip-divider"></span>
+        <div class="ip-text">
+            <div class="ip-label" id="ip-label">Despachante</div>
+            <div class="ip-hint" id="ip-hint">Premir para falar</div>
+        </div>
+    </div>
+</div>
+
+<!-- =================================================================
+     Delivery paper (receiver-NPC sign-off overlay)
+     ================================================================= -->
+<div id="delivery-paper" class="hidden" aria-hidden="true">
+    <div class="paper">
+        <span class="paper-tape paper-tape-l" aria-hidden="true"></span>
+        <span class="paper-tape paper-tape-r" aria-hidden="true"></span>
+
+        <header class="paper-head">
+            <div class="paper-brand">
+                <span class="paper-brand-mark"><i class="fa-sharp fa-solid fa-truck-fast"></i></span>
+                <div class="paper-brand-text">
+                    <strong id="paper-brand-name">Oxlyn Logistics</strong>
+                    <span data-i18n="paper_brand_subtitle">Delivery Receipt</span>
+                </div>
+            </div>
+            <div class="paper-doc">
+                <span data-i18n="paper_doc_no">Nº</span>
+                <strong id="paper-doc-id">—</strong>
+            </div>
+        </header>
+
+        <div class="paper-body">
+            <div class="paper-row">
+                <span class="paper-label"><i class="fa-sharp fa-solid fa-circle-dot"></i> <span data-i18n="paper_from">Origem</span></span>
+                <strong id="paper-from">—</strong>
+            </div>
+            <div class="paper-row">
+                <span class="paper-label"><i class="fa-sharp fa-solid fa-location-dot"></i> <span data-i18n="paper_to">Destino</span></span>
+                <strong id="paper-to">—</strong>
+            </div>
+            <div class="paper-row">
+                <span class="paper-label"><i class="fa-sharp fa-solid fa-box"></i> <span data-i18n="paper_cargo">Carga</span></span>
+                <strong id="paper-cargo">—</strong>
+            </div>
+            <div class="paper-row paper-row-split">
+                <div>
+                    <span class="paper-label"><i class="fa-sharp fa-solid fa-road"></i> <span data-i18n="paper_distance">Distância</span></span>
+                    <strong><span id="paper-dist">0</span> km</strong>
+                </div>
+                <div>
+                    <span class="paper-label"><i class="fa-sharp fa-solid fa-clock"></i> <span data-i18n="paper_time">Tempo</span></span>
+                    <strong id="paper-time">00:00</strong>
+                </div>
+            </div>
+            <div class="paper-divider" aria-hidden="true"></div>
+            <div class="paper-breakdown" id="paper-breakdown"></div>
+            <div class="paper-row paper-row-total">
+                <span class="paper-label paper-label-strong"><i class="fa-sharp fa-solid fa-coins"></i> <span data-i18n="paper_payment">Pagamento</span></span>
+                <strong class="paper-money"><span id="paper-cur">€</span><span id="paper-pay">0</span></strong>
+            </div>
+        </div>
+
+        <footer class="paper-foot">
+            <div class="paper-sig" id="paper-sig">
+                <svg class="paper-sig-svg" id="paper-sig-svg" viewBox="0 0 240 56" aria-hidden="true">
+                    <path class="paper-sig-path" id="paper-sig-path"
+                          d="M 14 40 C 28 12, 44 50, 58 28 S 78 10, 96 34 Q 110 50, 124 22 T 156 32 C 172 44, 188 18, 200 30 L 220 24"
+                          fill="none" stroke="#1f1d18" stroke-width="2.0"
+                          stroke-linecap="round" stroke-linejoin="round"
+                          stroke-dasharray="540" stroke-dashoffset="540"/>
+                </svg>
+                <span class="paper-sig-line"></span>
+                <span class="paper-sig-label" data-i18n="paper_sig_label">Assinatura do motorista</span>
+            </div>
+            <div class="paper-actions">
+                <button id="paper-cancel" class="paper-btn paper-btn-ghost">
+                    <i class="fa-sharp fa-solid fa-xmark"></i>
+                    <span data-i18n="paper_cancel">Voltar</span>
+                </button>
+                <button id="paper-sign" class="paper-btn paper-btn-primary">
+                    <i class="fa-sharp fa-solid fa-pen-nib"></i>
+                    <span data-i18n="paper_sign">Assinar & Confirmar</span>
+                </button>
+            </div>
+        </footer>
+
+        <span class="paper-stamp" id="paper-stamp" aria-hidden="true">
+            <span data-i18n="paper_delivered">ENTREGUE</span>
+        </span>
+    </div>
+</div>
+
+<!-- =================================================================
+     Level-up burst
+     ================================================================= -->
+<div id="levelup" class="hidden" aria-hidden="true">
+    <div class="lu-card">
+        <span class="lu-shine" aria-hidden="true"></span>
+        <div class="lu-icon"><i class="fa-sharp fa-solid fa-medal"></i></div>
+        <div class="lu-text">
+            <span class="lu-tag" id="lu-tag">Subiu de nível</span>
+            <strong class="lu-value">Lv. <span id="lu-level">1</span></strong>
+        </div>
+    </div>
+</div>
+
+<!-- =================================================================
+     HUD (in-job)
+     ================================================================= -->
+<div id="hud" class="hud hidden">
+    <div class="hud-card">
+        <span class="hud-shine" aria-hidden="true"></span>
+        <div class="hud-row">
+            <span class="hud-label">
+                <i class="fa-sharp fa-regular fa-route"></i>
+                <span data-i18n="hud_route">Rota</span>
+            </span>
+            <strong id="hud-route">—</strong>
+        </div>
+        <div class="hud-grid">
+            <div class="hud-stat">
+                <span class="hud-stat-label">
+                    <i class="fa-sharp fa-light fa-location-arrow"></i>
+                    <span data-i18n="hud_remaining">Restante</span>
+                </span>
+                <span class="hud-stat-value"><span id="hud-km">0.00</span> <em>km</em></span>
+            </div>
+            <div class="hud-stat">
+                <span class="hud-stat-label">
+                    <i class="fa-sharp fa-light fa-gauge-high"></i>
+                    <span data-i18n="hud_speed">Velocidade</span>
+                </span>
+                <span class="hud-stat-value"><span id="hud-speed">0</span> <em>km/h</em></span>
+            </div>
+            <div class="hud-stat">
+                <span class="hud-stat-label">
+                    <i class="fa-sharp fa-light fa-euro-sign"></i>
+                    <span data-i18n="hud_payment">Pagamento</span>
+                </span>
+                <span class="hud-stat-value money"><span id="hud-currency">€</span><span id="hud-pay">0</span></span>
+            </div>
+        </div>
+        <div class="hud-bar"><span id="hud-bar-fill" class="hud-bar-fill"></span></div>
+        <div class="hud-foot">
+            <span id="hud-cargo"><i class="fa-sharp fa-light fa-box"></i> —</span>
+            <span id="hud-elapsed" class="mono"><i class="fa-sharp fa-light fa-clock"></i> 00:00</span>
+        </div>
+        <div class="hud-level">
+            <span class="hud-level-label">
+                <i class="fa-sharp fa-solid fa-medal"></i>
+                Lv. <strong id="hud-level">1</strong>
+            </span>
+            <span class="hud-level-bar"><span id="hud-xp-fill" class="hud-level-fill"></span></span>
+            <span class="hud-level-xp mono"><span id="hud-xp">0</span>/<span id="hud-xp-next">0</span></span>
+        </div>
+    </div>
+</div>
+
+<!-- =================================================================
+     Main app (Liquid Glass)
+     ================================================================= -->
+<main id="app" class="app hidden">
+    <div class="frame">
+        <!-- Ambient aurora background (blue + violet orbs) -->
+        <span class="aurora aurora-1" aria-hidden="true"></span>
+        <span class="aurora aurora-2" aria-hidden="true"></span>
+        <span class="aurora aurora-3" aria-hidden="true"></span>
+        <span class="frame-grain" aria-hidden="true"></span>
+
+        <!-- Legacy decoration hooks kept (invisible) -->
+        <span class="frame-grid" aria-hidden="true"></span>
+        <span class="frame-mesh" aria-hidden="true"></span>
+        <span class="frame-glow frame-glow-tl" aria-hidden="true"></span>
+        <span class="frame-glow frame-glow-br" aria-hidden="true"></span>
+        <span class="frame-glow frame-glow-c"  aria-hidden="true"></span>
+        <span class="frame-scan" aria-hidden="true"></span>
+
+        <!-- ========== Floating glass top bar ========== -->
+        <header class="topbar">
+            <div class="brand">
+                <span class="brand-mark">
+                    <i class="fa-sharp fa-solid fa-truck-fast"></i>
+                </span>
+                <div class="brand-text">
+                    <strong data-i18n="app_title">Empresa de Transportes</strong>
+                    <span data-i18n="app_subtitle">Painel do motorista</span>
+                </div>
+                <span id="brand-name" class="hidden">Oxlyn</span>
+            </div>
+
+            <nav class="nav">
+                <button class="nav-item is-active" data-tab="routes">
+                    <i class="nav-ico fa-sharp fa-regular fa-truck"></i>
+                    <span data-i18n="menu_routes">Rotas</span>
+                </button>
+                <button class="nav-item" data-tab="history">
+                    <i class="nav-ico fa-sharp fa-regular fa-clock-rotate-left"></i>
+                    <span data-i18n="menu_history">Histórico</span>
+                </button>
+                <button class="nav-item" data-tab="stats">
+                    <i class="nav-ico fa-sharp fa-regular fa-chart-line"></i>
+                    <span data-i18n="menu_stats">Estatísticas</span>
+                </button>
+                <button class="nav-item" data-tab="ranking">
+                    <i class="nav-ico fa-sharp fa-regular fa-trophy"></i>
+                    <span data-i18n="menu_ranking">Ranking</span>
+                </button>
+                <button class="nav-item" data-tab="settings">
+                    <i class="nav-ico fa-sharp fa-regular fa-circle-info"></i>
+                    <span data-i18n="menu_info">Info</span>
+                </button>
+            </nav>
+
+            <div class="topbar-meta">
+                <span id="clock" class="clock mono">
+                    <i class="fa-sharp fa-light fa-clock"></i> 00:00
+                </span>
+                <div class="profile-chip">
+                    <div class="profile-avatar">
+                        <div class="profile-avatar-frame">
+                            <img id="profile-img" alt="" />
+                            <span class="profile-avatar-fallback">
+                                <i class="fa-sharp fa-solid fa-user-large"></i>
+                            </span>
+                        </div>
+                        <span class="profile-online" aria-hidden="true"></span>
+                    </div>
+                    <div class="profile-meta">
+                        <strong id="profile-name" class="profile-name">—</strong>
+                        <span class="profile-level">
+                            <span data-i18n="level">Nv.</span>
+                            <strong id="profile-level">1</strong>
+                        </span>
+                    </div>
+                </div>
+                <button id="btn-close" class="btn-icon" aria-label="Close">
+                    <i class="fa-sharp fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- ========== Hero strip ========== -->
+        <section class="hero">
+            <div class="hero-card hero-xp">
+                <div class="hero-xp-head">
+                    <span class="hero-xp-tag">
+                        <i class="fa-sharp fa-solid fa-shield-halved"></i>
+                        <span data-i18n="level">Nível</span>
+                        <strong id="lvl-num">1</strong>
+                    </span>
+                    <span class="hero-xp-progress mono" id="lvl-progress">0 / 0 XP</span>
+                </div>
+                <div class="hero-xp-bar"><span id="lvl-fill" class="lvl-fill"></span></div>
+                <span id="lvl-bonus" class="lvl-bonus">
+                    <i class="fa-sharp fa-solid fa-arrow-trend-up"></i>+0%
+                </span>
+            </div>
+
+            <div class="hero-spacer"></div>
+
+            <div id="routes-header" class="hero-pill hidden">
+                <span class="hero-pill-ico">
+                    <i class="fa-sharp fa-solid fa-arrows-rotate"></i>
+                </span>
+                <span class="hero-pill-text" id="rotation-text">Novas rotas em —</span>
+            </div>
+
+            <div id="bonus-badge" class="hero-pill is-bonus hidden">
+                <span class="bonus-pulse"></span>
+                <i id="bonus-icon" class="fa-sharp fa-solid fa-bolt"></i>
+                <span class="bonus-text" id="bonus-text">
+                    +<span id="bonus-pct">20</span>%
+                    <span id="bonus-time">10:00</span>
+                </span>
+            </div>
+        </section>
+
+        <!-- ========== Main content ========== -->
+        <section class="content">
+            <div class="tab is-active" data-tab="routes">
+                <div class="content-head">
+                    <h2 data-i18n="routes_panel_title">Rotas disponíveis</h2>
+                    <p class="content-sub" data-i18n="routes_panel_sub">Escolhe uma entrega para começar</p>
+                </div>
+                <div id="route-grid" class="route-grid"></div>
+                <button id="btn-quit" class="btn-quit">
+                    <i class="fa-sharp fa-light fa-right-from-bracket"></i>
+                    <span data-i18n="menu_quit">Sair do trabalho</span>
+                </button>
+            </div>
+
+            <div class="tab" data-tab="history">
+                <div class="content-head">
+                    <h2 data-i18n="history_panel_title">Histórico de entregas</h2>
+                    <p class="content-sub" data-i18n="history_panel_sub">As tuas últimas viagens</p>
+                </div>
+                <div id="history-list" class="history-list"></div>
+            </div>
+
+            <div class="tab" data-tab="stats">
+                <div class="content-head">
+                    <h2 data-i18n="stats_panel_title">Estatísticas</h2>
+                    <p class="content-sub" data-i18n="stats_panel_sub">A tua carreira em números</p>
+                </div>
+                <div class="stats-layout">
+
+                    <!-- Hero — total earnings + inline sub-stats -->
+                    <section class="stat-block stat-hero">
+                        <div class="stat-hero-head">
+                            <span class="stat-hero-tag">
+                                <i class="fa-sharp fa-solid fa-sack-dollar"></i>
+                                <span data-i18n="stats_total_paid">Total ganho</span>
+                            </span>
+                            <span class="stat-hero-chip" data-i18n="stats_overview_tag">Histórico total</span>
+                        </div>
+                        <div class="stat-hero-value money">
+                            <span class="cur">€</span><span id="stat-total">0</span>
+                        </div>
+                        <div class="stat-hero-inline">
+                            <div class="stat-inline">
+                                <span class="stat-inline-ico"><i class="fa-sharp fa-solid fa-truck-ramp-box"></i></span>
+                                <div class="stat-inline-body">
+                                    <strong><span id="stat-deliveries">0</span></strong>
+                                    <span data-i18n="stats_deliveries">Entregas</span>
+                                </div>
+                            </div>
+                            <div class="stat-inline">
+                                <span class="stat-inline-ico"><i class="fa-sharp fa-solid fa-road"></i></span>
+                                <div class="stat-inline-body">
+                                    <strong><span id="stat-distance">0</span> <em>km</em></strong>
+                                    <span data-i18n="stats_distance">Distância total</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Records -->
+                    <section class="stat-block stat-records">
+                        <header class="stat-block-head">
+                            <span class="stat-block-head-ico"><i class="fa-sharp fa-solid fa-trophy"></i></span>
+                            <div>
+                                <strong data-i18n="stats_records">Recordes</strong>
+                                <span data-i18n="stats_records_sub">Melhores marcas</span>
+                            </div>
+                        </header>
+                        <ul class="stat-list">
+                            <li>
+                                <span class="stat-list-label" data-i18n="stats_best_run">Melhor entrega</span>
+                                <span class="stat-list-value money"><span class="cur">€</span><span id="stat-best">0</span></span>
+                            </li>
+                            <li>
+                                <span class="stat-list-label" data-i18n="stats_avg_pay">Pagamento médio</span>
+                                <span class="stat-list-value money"><span class="cur">€</span><span id="stat-avg">0</span></span>
+                            </li>
+                            <li>
+                                <span class="stat-list-label" data-i18n="stats_per_km">Por km</span>
+                                <span class="stat-list-value"><span class="cur">€</span><span id="stat-per-km">0.00</span></span>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- Progression — Level + XP bar -->
+                    <section class="stat-block stat-progression">
+                        <header class="stat-block-head">
+                            <span class="stat-block-head-ico"><i class="fa-sharp fa-solid fa-shield-halved"></i></span>
+                            <div>
+                                <strong data-i18n="stats_progression">Progressão</strong>
+                                <span data-i18n="stats_progression_sub">Nível & XP</span>
+                            </div>
+                        </header>
+                        <div class="stat-prog-row">
+                            <span class="stat-prog-level">
+                                <span data-i18n="level">Nível</span>
+                                <strong id="stat-level">1</strong>
+                            </span>
+                            <span class="stat-prog-xp mono" id="stat-xp">0 / 0 XP</span>
+                        </div>
+                        <div class="stat-prog-bar"><span id="stat-xp-fill"></span></div>
+                        <div class="stat-prog-foot">
+                            <span data-i18n="stats_to_next">Próximo nível em</span>
+                            <strong id="stat-xp-remaining">0 XP</strong>
+                        </div>
+                    </section>
+
+                    <!-- Routes summary -->
+                    <section class="stat-block stat-routes">
+                        <header class="stat-block-head">
+                            <span class="stat-block-head-ico"><i class="fa-sharp fa-solid fa-route"></i></span>
+                            <div>
+                                <strong data-i18n="stats_routes">Rotas</strong>
+                                <span data-i18n="stats_routes_sub">Detalhe das entregas</span>
+                            </div>
+                        </header>
+                        <ul class="stat-list">
+                            <li>
+                                <span class="stat-list-label" data-i18n="stats_unique_routes">Rotas únicas</span>
+                                <span class="stat-list-value"><span id="stat-unique">0</span></span>
+                            </li>
+                            <li>
+                                <span class="stat-list-label" data-i18n="stats_most_repeated">Mais repetida</span>
+                                <span class="stat-list-value">×<span id="stat-most-repeated">0</span></span>
+                            </li>
+                            <li>
+                                <span class="stat-list-label" data-i18n="stats_total_completions">Total concluídas</span>
+                                <span class="stat-list-value"><span id="stat-total-completions">0</span></span>
+                            </li>
+                        </ul>
+                    </section>
+
+                </div>
+            </div>
+
+            <div class="tab" data-tab="ranking">
+                <div class="ranking-head">
+                    <div>
+                        <h2 id="ranking-title">Top motoristas</h2>
+                        <p id="ranking-subtitle" class="content-sub">—</p>
+                    </div>
+                    <button id="ranking-refresh" class="btn-icon" title="Refresh">
+                        <i class="fa-sharp fa-solid fa-arrows-rotate"></i>
+                    </button>
+                </div>
+                <div id="ranking-list" class="ranking-list"></div>
+            </div>
+
+            <div class="tab" data-tab="settings">
+                <div class="content-head">
+                    <h2 data-i18n="info_panel_title">Informações</h2>
+                    <p class="content-sub" data-i18n="info_panel_sub">Detalhes do serviço</p>
+                </div>
+                <div class="settings" id="info-list"></div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

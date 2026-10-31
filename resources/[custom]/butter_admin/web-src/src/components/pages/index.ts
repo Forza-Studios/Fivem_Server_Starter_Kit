@@ -1,0 +1,10 @@
+export { default as ReportsPage } from './ReportsPage/index';
+export { default as BansPage } from './BansPage/index';
+export { default as PlayerListPage } from './PlayerListPage/index';
+export { default as AccessControlPage } from './AccessControlPage/index';
+export { default as CommandsPage } from './CommandsPage/index';
+export { default as PlayerLogsPage } from './PlayerLogsPage/index';
+export { default as StaffChatPage } from './StaffChatPage/index';
+export { default as OptionsPage } from './OptionsPage/index';
+export { default as ResourcesPage } from './ResourcesPage/index';
+export { default as TxAdminPage } from './TxAdminPage/index';

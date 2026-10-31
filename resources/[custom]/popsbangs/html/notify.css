@@ -1,0 +1,48 @@
+/* Notifications: the bar's family. One font, soft radius, hairline, the accent
+ * of the kind. No backdrop-filter and no filter (both paint black in CEF). */
+#notify {
+  --ink: #eef1f5;
+  --ink-dim: rgba(238, 241, 245, 0.62);
+  --line: rgba(255, 255, 255, 0.08);
+  position: fixed; left: 0; right: 0; bottom: 186px; display: flex; flex-direction: column; align-items: center; gap: 8px;
+  font-family: Inter, "Segoe UI", system-ui, -apple-system, sans-serif; color: var(--ink); pointer-events: none;
+}
+/* At the top the bar sits first (top 28px, ~150px tall); the notifications follow under it. */
+#notify.top { bottom: auto; top: 190px; flex-direction: column-reverse; }
+#notify *, #notify *::before, #notify *::after { box-sizing: border-box; }
+
+.nt {
+  --nt-accent: #7aa7ff; --nt-soft: rgba(122, 167, 255, 0.16);
+  position: relative; overflow: hidden; display: flex; align-items: center; gap: 12px;
+  width: 400px; max-width: 92vw; padding: 11px 14px 12px; border-radius: 15px;
+  background: rgba(16, 18, 23, 0.94); border: 1px solid var(--line);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  opacity: 0; transform: translateY(10px) scale(0.98);
+  transition: opacity 0.22s ease, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+#notify.top .nt { transform: translateY(-10px) scale(0.98); }
+.nt.in { opacity: 1; transform: none; }
+.nt.out { opacity: 0; transform: scale(0.97); transition-duration: 0.22s; }
+.nt::before {
+  content: ''; position: absolute; left: 12%; right: 12%; top: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--nt-accent), transparent); opacity: 0.7;
+}
+.nt-success { --nt-accent: #37d67a; --nt-soft: rgba(55, 214, 122, 0.16); }
+.nt-warning { --nt-accent: #ffb547; --nt-soft: rgba(255, 181, 71, 0.16); }
+.nt-error { --nt-accent: #ff5462; --nt-soft: rgba(255, 84, 98, 0.16); }
+
+.nt-icon {
+  flex: none; width: 36px; height: 36px; border-radius: 11px; display: grid; place-items: center;
+  background: var(--nt-soft); color: var(--nt-accent); box-shadow: inset 0 0 0 1px var(--line);
+}
+.nt-icon svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; }
+.nt-icon img { width: 28px; height: 28px; object-fit: contain; }
+.nt-text { flex: 1; min-width: 0; }
+.nt-title { font-size: 12.5px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 2px; }
+.nt-msg { font-size: 12.5px; line-height: 1.35; color: var(--ink); }
+.nt-title + .nt-msg { color: var(--ink-dim); font-size: 12px; }
+.nt-bar {
+  position: absolute; left: 0; bottom: 0; height: 2px; width: 100%; background: var(--nt-accent); opacity: 0.55;
+  transform-origin: left center; animation: nt-run linear forwards;
+}
+@keyframes nt-run { from { transform: scaleX(1); } to { transform: scaleX(0); } }

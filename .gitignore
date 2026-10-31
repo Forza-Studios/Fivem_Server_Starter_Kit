@@ -1,0 +1,20 @@
+# FiveM server secrets
+server.cfg
+server.cfg.bkp
+server.cfg.bak*
+server.cfg.bak-*
+
+# Environment secrets
+.env
+.env.*
+
+# Runtime
+cache/
+*.log
+db/
+
+# Server secrets and backups
+server.cfg
+server.cfg.*
+server.cfg.bkp
+server.cfg.bak*

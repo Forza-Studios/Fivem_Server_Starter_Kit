@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; connect-src 'self' https:; style-src 'self' 'unsafe-inline'; img-src 'self' data:">
+  <title>Oxlyn Pops &amp; Bangs</title>
+  <link rel="stylesheet" href="workshop.css"><link rel="stylesheet" href="notify.css"><link rel="stylesheet" href="valve.css">
+  <style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:transparent;pointer-events:none}</style>
+</head>
+<body><div id="workshop" hidden></div><div id="notify"></div>
+<section id="valve-remote" hidden role="dialog" aria-modal="true" aria-label="Valve control" aria-describedby="valve-help" tabindex="-1">
+ <img class="remote-image" src="img/popsbangs_valve_control.png" alt="Exhaust valve remote" draggable="false">
+ <span class="remote-led" aria-hidden="true"></span>
+ <div class="status sr-only" role="status" aria-live="polite"></div>
+ <div class="actions"><button data-closed="false" aria-label="Open valve" aria-pressed="true"></button><button data-closed="true" aria-label="Close valve" aria-pressed="false"></button></div>
+ <p id="valve-help" class="sr-only">Press ESC to close the remote.</p><p class="error sr-only" role="alert"></p>
+</section><script src="als-pattern.js"></script><script src="audio.js"></script><script src="workshop.js"></script><script src="notify.js"></script><script src="valve.js"></script></body>
+</html>

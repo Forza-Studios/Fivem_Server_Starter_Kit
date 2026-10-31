@@ -1,0 +1,328 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Admin-selectable UI font (see utils/fonts.ts) */
+  --font-sans: 'Saira', 'Inter', sans-serif;
+  /* Admin-selectable text size multiplier (Font Size slider) */
+  --font-scale: 1;
+
+  /* Default Dark Theme - RGB Components */
+  --bg-primary: 13, 17, 23;
+  --bg-secondary: 22, 27, 34;
+  --sidebar-bg: 1, 4, 9;
+  --accent: 59, 130, 246;
+  --text-primary: 240, 246, 252;
+  --text-muted: 139, 148, 158;
+  --border: 48, 54, 61;
+  --theme-white: 255, 255, 255;
+  --theme-black: 0, 0, 0;
+  --success: 34, 197, 94;
+  --warning: 249, 115, 22;
+  --danger: 239, 68, 68;
+
+  --menu-small-width: 48px;
+  --menu-large-width: 850px;
+  --menu-height: 85vh;
+}
+
+[data-theme='Midnight'] {
+  --bg-primary: 17, 24, 39;
+  --bg-secondary: 31, 41, 55;
+  --sidebar-bg: 3, 7, 18;
+  --accent: 99, 102, 241;
+  --text-primary: 249, 250, 251;
+  --text-muted: 156, 163, 175;
+  --border: 55, 65, 81;
+  --success: 34, 197, 94;
+  --warning: 251, 146, 60;
+  --danger: 248, 113, 113;
+}
+
+[data-theme='Cyberpunk'] {
+  --bg-primary: 0, 0, 0;
+  --bg-secondary: 20, 20, 20;
+  --sidebar-bg: 10, 10, 10;
+  --accent: 250, 204, 21;
+  --text-primary: 255, 255, 255;
+  --text-muted: 161, 161, 170;
+  --border: 236, 72, 153;
+  --success: 34, 211, 238;
+  --warning: 250, 204, 21;
+  --danger: 244, 63, 94;
+}
+
+[data-theme='Crimson'] {
+  --bg-primary: 15, 10, 10;
+  --bg-secondary: 30, 15, 15;
+  --sidebar-bg: 5, 2, 2;
+  --accent: 220, 38, 38;
+  --text-primary: 254, 242, 242;
+  --text-muted: 252, 165, 165;
+  --border: 153, 27, 27;
+  --success: 134, 239, 172;
+  --warning: 251, 191, 36;
+  --danger: 239, 68, 68;
+}
+
+[data-theme='Emerald'] {
+  --bg-primary: 6, 26, 16;
+  --bg-secondary: 6, 40, 24;
+  --sidebar-bg: 2, 10, 6;
+  --accent: 16, 185, 129;
+  --text-primary: 236, 253, 245;
+  --text-muted: 110, 231, 183;
+  --border: 4, 120, 87;
+  --success: 16, 185, 129;
+  --warning: 251, 191, 36;
+  --danger: 239, 68, 68;
+}
+
+[data-theme='Bubble'] {
+  --bg-primary: 253, 244, 255;
+  --bg-secondary: 255, 255, 255;
+  --sidebar-bg: 250, 232, 255;
+  --accent: 217, 70, 239;
+  --text-primary: 74, 4, 78;
+  --text-muted: 134, 25, 143;
+  --border: 217, 70, 239;
+  --success: 34, 197, 94;
+  --warning: 249, 115, 22;
+  --danger: 239, 68, 68;
+  --theme-white: 74, 4, 78;
+  --theme-black: 255, 255, 255;
+}
+
+[data-theme='Cloud'] {
+  --bg-primary: 240, 249, 255;
+  --bg-secondary: 255, 255, 255;
+  --sidebar-bg: 224, 242, 254;
+  --accent: 14, 165, 233;
+  --text-primary: 12, 74, 110;
+  --text-muted: 3, 105, 161;
+  --border: 14, 165, 233;
+  --success: 34, 197, 94;
+  --warning: 249, 115, 22;
+  --danger: 239, 68, 68;
+  --theme-white: 12, 74, 110;
+  --theme-black: 255, 255, 255;
+}
+
+[data-theme='Mint'] {
+  --bg-primary: 240, 253, 244;
+  --bg-secondary: 255, 255, 255;
+  --sidebar-bg: 220, 252, 231;
+  --accent: 34, 197, 94;
+  --text-primary: 20, 83, 45;
+  --text-muted: 22, 101, 52;
+  --border: 34, 197, 94;
+  --success: 22, 163, 74;
+  --warning: 202, 138, 4;
+  --danger: 220, 38, 38;
+  --theme-white: 20, 83, 45;
+  --theme-black: 255, 255, 255;
+}
+
+[data-theme='Peach'] {
+  --bg-primary: 255, 247, 237;
+  --bg-secondary: 255, 255, 255;
+  --sidebar-bg: 255, 237, 213;
+  --accent: 249, 115, 22;
+  --text-primary: 124, 45, 18;
+  --text-muted: 154, 52, 18;
+  --border: 249, 115, 22;
+  --success: 22, 163, 74;
+  --warning: 194, 65, 12;
+  --danger: 185, 28, 28;
+  --theme-white: 124, 45, 18;
+  --theme-black: 255, 255, 255;
+}
+
+[data-theme='Amethyst'] {
+  --bg-primary: 26, 11, 46;
+  --bg-secondary: 45, 27, 78;
+  --sidebar-bg: 15, 5, 24;
+  --accent: 168, 85, 247;
+  --text-primary: 250, 245, 255;
+  --text-muted: 216, 180, 254;
+  --border: 147, 51, 234;
+  --success: 168, 85, 247;
+  --warning: 245, 158, 11;
+  --danger: 239, 68, 68;
+}
+
+[data-theme='Sunset'] {
+  --bg-primary: 42, 15, 21;
+  --bg-secondary: 67, 20, 34;
+  --sidebar-bg: 26, 8, 12;
+  --accent: 249, 115, 22;
+  --text-primary: 255, 247, 237;
+  --text-muted: 253, 186, 116;
+  --border: 234, 88, 12;
+  --success: 34, 197, 94;
+  --warning: 249, 115, 22;
+  --danger: 239, 68, 68;
+}
+
+[data-theme='Ocean'] {
+  --bg-primary: 8, 28, 36;
+  --bg-secondary: 12, 45, 59;
+  --sidebar-bg: 4, 14, 18;
+  --accent: 6, 182, 212;
+  --text-primary: 236, 254, 255;
+  --text-muted: 103, 232, 249;
+  --border: 8, 145, 178;
+  --success: 34, 197, 94;
+  --warning: 249, 115, 22;
+  --danger: 239, 68, 68;
+}
+
+[data-theme='Forest'] {
+  --bg-primary: 15, 28, 19;
+  --bg-secondary: 24, 46, 31;
+  --sidebar-bg: 8, 15, 10;
+  --accent: 132, 204, 22;
+  --text-primary: 247, 254, 231;
+  --text-muted: 190, 242, 100;
+  --border: 101, 163, 13;
+  --success: 132, 204, 22;
+  --warning: 234, 179, 8;
+  --danger: 239, 68, 68;
+}
+
+[data-theme='Gold'] {
+  --bg-primary: 18, 18, 18;
+  --bg-secondary: 38, 38, 38;
+  --sidebar-bg: 0, 0, 0;
+  --accent: 234, 179, 8;
+  --text-primary: 254, 252, 232;
+  --text-muted: 253, 224, 71;
+  --border: 202, 138, 4;
+  --success: 163, 230, 53;
+  --warning: 234, 179, 8;
+  --danger: 239, 68, 68;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+  font-family: var(--font-sans), 'Inter', sans-serif;
+  color: rgb(var(--text-primary));
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+  user-select: none;
+  -webkit-font-smoothing: subpixel-antialiased !important;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.rajdhani {
+  font-family: var(--font-sans), 'Lato', sans-serif;
+}
+
+/* Hide Scrollbars globally but keep functionality */
+* {
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+}
+
+*::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari and Opera */
+}
+
+/* Animations */
+.transition-all-smooth {
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  80% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-popIn {
+  animation: popIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(1000%);
+  }
+}
+
+.animate-scanline {
+  animation: scanline 3s linear infinite;
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%) skewX(-20deg);
+  }
+
+  20% {
+    transform: translateX(200%) skewX(-20deg);
+  }
+
+  100% {
+    transform: translateX(200%) skewX(-20deg);
+  }
+}
+
+.animate-shine {
+  animation: shine 2s infinite;
+}
+
+@keyframes slideInRightSpring {
+  0% {
+    transform: translateX(80px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in-right {
+  animation: slideInRightSpring 0.45s cubic-bezier(0.34, 1.25, 0.64, 1) forwards;
+}
+
+/* Force perfect pixel-level snapping and antialiasing in FiveM CEF */
+body,
+* {
+  -webkit-font-smoothing: subpixel-antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
+  image-rendering: -webkit-optimize-contrast !important;
+  image-rendering: crisp-edges !important;
+}

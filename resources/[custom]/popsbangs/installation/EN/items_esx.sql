@@ -1,0 +1,24 @@
+-- ===========================================================================
+--  oxlyn-popsbangs — SQL Import for ESX (English)
+-- ===========================================================================
+
+INSERT INTO `items` (`name`, `label`, `weight`, `rare`, `can_remove`) VALUES
+    ('popsbangs_antilag_kit', 'Anti-Lag Kit', 5, 0, 1),
+    ('popsbangs_antilag_remover', 'Anti-Lag Removal Kit', 3, 0, 1),
+    ('popsbangs_valve_control', 'Exhaust Valve Remote', 1, 0, 1),
+    ('popsbangs_exhaust_stock', 'Stainless Steel Exhaust', 10, 0, 1),
+    ('popsbangs_exhaust_cobalt', 'Cobalt Blue Exhaust', 10, 0, 1),
+    ('popsbangs_exhaust_cyan', 'Cyan Exhaust', 10, 0, 1),
+    ('popsbangs_exhaust_turquoise', 'Turquoise Exhaust', 10, 0, 1),
+    ('popsbangs_exhaust_emerald', 'Emerald Green Exhaust', 10, 0, 1),
+    ('popsbangs_exhaust_lime', 'Lime Green Exhaust', 10, 0, 1),
+    ('popsbangs_exhaust_ruby', 'Ruby Red Exhaust', 10, 0, 1),
+    ('popsbangs_exhaust_orange', 'Orange Exhaust', 10, 0, 1),
+    ('popsbangs_exhaust_yellow', 'Yellow Exhaust', 10, 0, 1),
+    ('popsbangs_exhaust_gold', 'Gold Exhaust', 10, 0, 1),
+    ('popsbangs_exhaust_copper', 'Copper Exhaust', 10, 0, 1),
+    ('popsbangs_exhaust_amethyst', 'Amethyst Purple Exhaust', 10, 0, 1),
+    ('popsbangs_exhaust_magenta', 'Magenta Pink Exhaust', 10, 0, 1),
+    ('popsbangs_exhaust_pearl', 'Pearl White Exhaust', 10, 0, 1),
+    ('popsbangs_exhaust_black', 'Black Smoke Exhaust', 10, 0, 1)
+ON DUPLICATE KEY UPDATE `label` = VALUES(`label`), `weight` = VALUES(`weight`);

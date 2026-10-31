@@ -1,0 +1,1715 @@
+{
+  "version": "4.6.0",
+  "format": "PCM16 mono 48 kHz",
+  "generator": "tools/build-bank.js",
+  "files": {
+    "snap_01.wav": {
+      "family": "snap",
+      "seed": 168943565,
+      "durationMs": 200,
+      "recordings": [
+        "real_bang_b2.wav",
+        "real_backfire_a.wav",
+        "snap_01.wav"
+      ],
+      "sha256": "d09d85c5e38f68cfdb4bc5ccdcd527f19cc58d3e4c65b08580318f89473d5d4d"
+    },
+    "snap_02.wav": {
+      "family": "snap",
+      "seed": 168951484,
+      "durationMs": 180,
+      "recordings": [
+        "real_bang_b1.wav",
+        "real_pop_d.wav",
+        "snap_02.wav"
+      ],
+      "sha256": "5b787e52e5758b7de2b93a922b2cfa13cace14932cf924e0ad3b050995f8b07c"
+    },
+    "snap_03.wav": {
+      "family": "snap",
+      "seed": 168959403,
+      "durationMs": 220,
+      "recordings": [
+        "real_bang_b4.wav",
+        "real_backfire_a.wav",
+        "snap_03.wav"
+      ],
+      "sha256": "3821ab25d472ea7cea0f11a70176d317525a85082a3c98222617871b3584cb48"
+    },
+    "snap_04.wav": {
+      "family": "snap",
+      "seed": 168967322,
+      "durationMs": 190,
+      "recordings": [
+        "real_bang_b2.wav",
+        "real_pop_d.wav",
+        "snap_04.wav"
+      ],
+      "sha256": "1d3a69dc559c9213952810a309f7565da641abe032cedb8838cc46aca55869e4"
+    },
+    "snap_05.wav": {
+      "family": "snap",
+      "seed": 168975241,
+      "durationMs": 210,
+      "recordings": [
+        "real_bang_b3.wav",
+        "real_backfire_a.wav",
+        "snap_05.wav"
+      ],
+      "sha256": "65c2eedb456a52210d479eb8650c9d91bdcc1d663236d4cb51ba52e2d284d334"
+    },
+    "snap_06.wav": {
+      "family": "snap",
+      "seed": 168983160,
+      "durationMs": 200,
+      "recordings": [
+        "real_bang_b1.wav",
+        "real_pop_d.wav",
+        "snap_06.wav"
+      ],
+      "sha256": "87f0166a548637ab31cde452d22996e2e982c5b530e91e8bc1919c9aced56dda"
+    },
+    "snap_07.wav": {
+      "family": "snap",
+      "seed": 168991079,
+      "durationMs": 220,
+      "recordings": [
+        "real_fire_b.wav",
+        "real_bang_b1.wav"
+      ],
+      "sha256": "87020a977e233d552415e7960a6277d3426cabea123ff55df2ad54a530387ff3"
+    },
+    "snap_08.wav": {
+      "family": "snap",
+      "seed": 168998998,
+      "durationMs": 200,
+      "recordings": [
+        "real_fire_d.wav",
+        "real_bang_b2.wav"
+      ],
+      "sha256": "d0c40909949bf54563995b435bd64fddf66e1a396284f3a0f31f489cf1e99021"
+    },
+    "snap_09.wav": {
+      "family": "snap",
+      "seed": 169006917,
+      "durationMs": 240,
+      "recordings": [
+        "real_fire_e.wav",
+        "real_bang_b3.wav"
+      ],
+      "sha256": "7b648ce8286b811738b2736040b1352980fce4a1d91a71d7d1a346e6ff980dd2"
+    },
+    "snap_10.wav": {
+      "family": "snap",
+      "seed": 169014836,
+      "durationMs": 210,
+      "recordings": [
+        "real_fire_f.wav",
+        "real_bang_b4.wav"
+      ],
+      "sha256": "34d306b7d8db424fd0bf7816809f4dfcf9ddbccc1e6f5f81e9b2ca92e4f01109"
+    },
+    "snap_11.wav": {
+      "family": "snap",
+      "seed": 169022755,
+      "durationMs": 230,
+      "recordings": [
+        "real_fire_a.wav",
+        "real_bang_b1.wav"
+      ],
+      "sha256": "907fe8dc40cb7e22eb910e766cee63fec38aeea347042622904a552382bd60a8"
+    },
+    "snap_12.wav": {
+      "family": "snap",
+      "seed": 169030674,
+      "durationMs": 200,
+      "recordings": [
+        "real_fire_e.wav",
+        "real_bang_b2.wav"
+      ],
+      "sha256": "5779149933272f278973f15cdb32af4d2829a1ae529ce35f90025927afe0e2c2"
+    },
+    "snap_13.wav": {
+      "family": "snap",
+      "seed": 169038593,
+      "durationMs": 240,
+      "recordings": [
+        "real_crack_c.wav",
+        "real_gun_h.wav"
+      ],
+      "sha256": "05e241965e5d3bb1e0281c8d894a45a66d41037d2880d67e0df524dd276fcc32"
+    },
+    "snap_14.wav": {
+      "family": "snap",
+      "seed": 169046512,
+      "durationMs": 220,
+      "recordings": [
+        "real_crack_d.wav",
+        "real_gun_k.wav"
+      ],
+      "sha256": "012ef84f91f617d2ad635bd70280c292f40d5dc86c81f3e113fe1f051b24209f"
+    },
+    "snap_15.wav": {
+      "family": "snap",
+      "seed": 169054431,
+      "durationMs": 260,
+      "recordings": [
+        "real_gun_i.wav",
+        "real_gun_l.wav"
+      ],
+      "sha256": "9e28ae5cc2a80b5cf9671705e702b6c638520c06e178c7fca6538c2f89011345"
+    },
+    "snap_16.wav": {
+      "family": "snap",
+      "seed": 169062350,
+      "durationMs": 230,
+      "recordings": [
+        "real_crack_a.wav",
+        "real_gun_a.wav"
+      ],
+      "sha256": "1ad6a17f2c4057761840cd2727a6a14d64dab8e451cef73a67667c07c73dbd5b"
+    },
+    "snap_17.wav": {
+      "family": "snap",
+      "seed": 1152019342,
+      "durationMs": 220,
+      "recordings": [
+        "real_gun_r.wav",
+        "real_fire_k.wav"
+      ],
+      "sha256": "34a44fd36e783ac447d13176d9e5475f6be740655a4508ddb9985cdae1a5de6d"
+    },
+    "snap_18.wav": {
+      "family": "snap",
+      "seed": 1152027261,
+      "durationMs": 200,
+      "recordings": [
+        "real_gun_s.wav",
+        "real_fire_k.wav"
+      ],
+      "sha256": "2eef02196015f969c5548b8222db9cfc1704b85eb9d2888fdba86e938e985178"
+    },
+    "snap_19.wav": {
+      "family": "snap",
+      "seed": 1152035180,
+      "durationMs": 240,
+      "recordings": [
+        "real_gun_p.wav",
+        "real_fire_k.wav"
+      ],
+      "sha256": "ba504163c35f83ce3da42a24cc633f262cfeab08da68d50cede9c35c5d0e156d"
+    },
+    "snap_20.wav": {
+      "family": "snap",
+      "seed": 1152043099,
+      "durationMs": 210,
+      "recordings": [
+        "real_gun_m.wav",
+        "real_fire_k.wav"
+      ],
+      "sha256": "57ef090b50a51b3fbbe5b683701dfc54e095878ad9707c2584d8aafd299139a2"
+    },
+    "snap_21.wav": {
+      "family": "snap",
+      "seed": 1152051018,
+      "durationMs": 230,
+      "recordings": [
+        "real_fire_g.wav",
+        "real_crack_f.wav"
+      ],
+      "sha256": "353945dd02aecb6c485a60392a76324db2614be6a8807b946e1a850079c7fe1f"
+    },
+    "snap_22.wav": {
+      "family": "snap",
+      "seed": 1152058937,
+      "durationMs": 210,
+      "recordings": [
+        "real_fire_h.wav",
+        "real_crack_f.wav"
+      ],
+      "sha256": "3bc1ce3c6476da7db7e2de2df43ebfbd3b97a5c66ba77514138f9783e6ad9f83"
+    },
+    "snap_23.wav": {
+      "family": "snap",
+      "seed": 1152066856,
+      "durationMs": 250,
+      "recordings": [
+        "real_fire_i.wav",
+        "real_crack_f.wav"
+      ],
+      "sha256": "f065934bdfd84ded2354fb9d9f3f019756ba4629a88c8bd839611cac45f17f99"
+    },
+    "snap_24.wav": {
+      "family": "snap",
+      "seed": 1152074775,
+      "durationMs": 220,
+      "recordings": [
+        "real_fire_k.wav",
+        "real_crack_f.wav"
+      ],
+      "sha256": "e52f652446f6be1fdbb078cdbd794bbe51188d26a48271b0834e3515506d30b3"
+    },
+    "crackle_01.wav": {
+      "family": "crackle",
+      "seed": 169070269,
+      "durationMs": 100,
+      "recordings": [
+        "real_pop_d.wav",
+        "crackle_01.wav"
+      ],
+      "sha256": "9d0982030238437c15a8f5d6832b87939cb6829d87ad9d00ad258f0a19652f0a"
+    },
+    "crackle_02.wav": {
+      "family": "crackle",
+      "seed": 169078188,
+      "durationMs": 90,
+      "recordings": [
+        "real_bang_b2.wav",
+        "crackle_02.wav"
+      ],
+      "sha256": "cf1f83810e34c06bdd8ced3a43a8439e9e7feacc2b1bdd41635389e7e24dafcb"
+    },
+    "crackle_03.wav": {
+      "family": "crackle",
+      "seed": 169086107,
+      "durationMs": 110,
+      "recordings": [
+        "real_bang_b3.wav",
+        "crackle_03.wav"
+      ],
+      "sha256": "e9ca2ff506fa26561f9e8ff23eed5990683a852206f6c3b4c8c86bcf7248a7f7"
+    },
+    "crackle_04.wav": {
+      "family": "crackle",
+      "seed": 169094026,
+      "durationMs": 95,
+      "recordings": [
+        "real_bang_b1.wav",
+        "crackle_04.wav"
+      ],
+      "sha256": "fa4f287daf31d0c45db4224cf61f3fb89903a390a86618b0db1cacb879034da9"
+    },
+    "crackle_05.wav": {
+      "family": "crackle",
+      "seed": 169101945,
+      "durationMs": 115,
+      "recordings": [
+        "real_pop_d.wav",
+        "crackle_05.wav"
+      ],
+      "sha256": "2388a7a988e4dbd2fb85fd9c6512003042452ae4be890949655d659744a255f4"
+    },
+    "crackle_06.wav": {
+      "family": "crackle",
+      "seed": 169109864,
+      "durationMs": 100,
+      "recordings": [
+        "real_bang_b4.wav",
+        "crackle_06.wav"
+      ],
+      "sha256": "70fef0cb66f247403603e94878f9007ffad4e05518d7376b13209197643a70e9"
+    },
+    "crackle_07.wav": {
+      "family": "crackle",
+      "seed": 169117783,
+      "durationMs": 100,
+      "recordings": [
+        "real_fire_c.wav"
+      ],
+      "sha256": "bb1261639b8d23bfbd26c641201b5b69a625562ad4e0b34cbb793458caed41c1"
+    },
+    "crackle_08.wav": {
+      "family": "crackle",
+      "seed": 169125702,
+      "durationMs": 90,
+      "recordings": [
+        "real_fire_b.wav"
+      ],
+      "sha256": "6cfdba1e15f67baff5f6cf51fbb706b3acaae612c7dcab14beabb2a0a3f28cc3"
+    },
+    "crackle_09.wav": {
+      "family": "crackle",
+      "seed": 169133621,
+      "durationMs": 110,
+      "recordings": [
+        "real_fire_d.wav"
+      ],
+      "sha256": "4e7a8432bc2e4bbf255c9c4588fab9c74d5de53ab387a8efca1f2d3cca77146f"
+    },
+    "crackle_10.wav": {
+      "family": "crackle",
+      "seed": 169141540,
+      "durationMs": 100,
+      "recordings": [
+        "real_fire_f.wav"
+      ],
+      "sha256": "0d99b718d51d0f04cf6c295a5f4216925fb2aca109b03cd07fc8bef3961fcb21"
+    },
+    "crackle_11.wav": {
+      "family": "crackle",
+      "seed": 169149459,
+      "durationMs": 120,
+      "recordings": [
+        "real_fire_c.wav"
+      ],
+      "sha256": "07132d3bbdf0720fac81dcfb7a913bd9ebc051b32f9fa62f6b2448cafe4f48bd"
+    },
+    "crackle_12.wav": {
+      "family": "crackle",
+      "seed": 169157378,
+      "durationMs": 95,
+      "recordings": [
+        "real_fire_e.wav"
+      ],
+      "sha256": "de596cbe9956244208923d56f7648887ec7080887e15dd37ef2e906ce7c5ce39"
+    },
+    "crackle_13.wav": {
+      "family": "crackle",
+      "seed": 169165297,
+      "durationMs": 90,
+      "recordings": [
+        "real_gun_i.wav"
+      ],
+      "sha256": "6388569db29a686e4e124e9d6bc45852b2b61de958fb1c0f3304124cfc901187"
+    },
+    "crackle_14.wav": {
+      "family": "crackle",
+      "seed": 169173216,
+      "durationMs": 85,
+      "recordings": [
+        "real_crack_a.wav"
+      ],
+      "sha256": "5ac4b806a52912deca93ec2c001de51c8f97c489a7a9a2a84d7c552464c83109"
+    },
+    "crackle_15.wav": {
+      "family": "crackle",
+      "seed": 169181135,
+      "durationMs": 100,
+      "recordings": [
+        "real_crack_b.wav"
+      ],
+      "sha256": "688edc4c7084fbf8279a81231d9c18d9ff20f26aeb2f8b31c9cdebd215cf06e0"
+    },
+    "crackle_16.wav": {
+      "family": "crackle",
+      "seed": 169189054,
+      "durationMs": 90,
+      "recordings": [
+        "real_crack_c.wav"
+      ],
+      "sha256": "520cfd4a8a80e0a8f1d476e5733c96608e6d3b927db6a542be3f98753fd9e674"
+    },
+    "crackle_17.wav": {
+      "family": "crackle",
+      "seed": 1152526158,
+      "durationMs": 100,
+      "recordings": [
+        "real_fire_g.wav"
+      ],
+      "sha256": "3a47a10eb3b46aa73257b8e78b92c0701bf3deb38e63902f0497a0c404e6b5ce"
+    },
+    "crackle_18.wav": {
+      "family": "crackle",
+      "seed": 1152534077,
+      "durationMs": 90,
+      "recordings": [
+        "real_fire_h.wav"
+      ],
+      "sha256": "3122dd488d421f01d8741c1379e6ee2d8e8c9dab78bb89b37bcf46838f71f7d8"
+    },
+    "crackle_19.wav": {
+      "family": "crackle",
+      "seed": 1152541996,
+      "durationMs": 110,
+      "recordings": [
+        "real_fire_i.wav"
+      ],
+      "sha256": "5440bcecacf21ffb05f81f4dbdfbaf5b0b07683372fe6e1d72f5b988661db1e0"
+    },
+    "crackle_20.wav": {
+      "family": "crackle",
+      "seed": 1152549915,
+      "durationMs": 100,
+      "recordings": [
+        "real_fire_k.wav"
+      ],
+      "sha256": "122e963fe7d2c9dc4625dec4ee950ce3d3bfe12bbb4558a6f84ff5c0d7b4f3bf"
+    },
+    "crackle_21.wav": {
+      "family": "crackle",
+      "seed": 1152557834,
+      "durationMs": 90,
+      "recordings": [
+        "real_crack_f.wav",
+        "real_fire_j.wav"
+      ],
+      "sha256": "629ae9417b3dd0a7a3d6079cc7672085287aebf4ffde0d0c63990fb99acac952"
+    },
+    "crackle_22.wav": {
+      "family": "crackle",
+      "seed": 1152565753,
+      "durationMs": 85,
+      "recordings": [
+        "real_gun_s.wav",
+        "real_fire_j.wav"
+      ],
+      "sha256": "7cd432de7ca82b548eef627418f781551d11ac511d7f3c139b69e233d602e994"
+    },
+    "crackle_23.wav": {
+      "family": "crackle",
+      "seed": 1152573672,
+      "durationMs": 100,
+      "recordings": [
+        "real_crack_g.wav",
+        "real_fire_j.wav"
+      ],
+      "sha256": "a9ef112ca14f4e20d8007453c332e8fca0957897fae012f0066b4b55d574866d"
+    },
+    "crackle_24.wav": {
+      "family": "crackle",
+      "seed": 1152581591,
+      "durationMs": 95,
+      "recordings": [
+        "real_gun_r.wav",
+        "real_fire_j.wav"
+      ],
+      "sha256": "5e35b83c6cdb152870c26850163676ed309a3bd42c1973ef788e93061d3c0e3f"
+    },
+    "bang_01.wav": {
+      "family": "bang",
+      "seed": 169196973,
+      "durationMs": 620,
+      "recordings": [
+        "real_gun_d.wav",
+        "real_bang_b1.wav",
+        "real_crack_b.wav"
+      ],
+      "sha256": "22a6af917a4d0c34ec33a1b3f52569eb2c43c6c4a4f5f4ed5913b695efadbe9b"
+    },
+    "bang_02.wav": {
+      "family": "bang",
+      "seed": 169204892,
+      "durationMs": 560,
+      "recordings": [
+        "real_gun_e.wav",
+        "real_bang_b2.wav",
+        "real_crack_c.wav"
+      ],
+      "sha256": "b2ca606d4e9ab476b62ab3d554acbe8fcf04c8af7605b9a576247efd52771a9a"
+    },
+    "bang_03.wav": {
+      "family": "bang",
+      "seed": 169212811,
+      "durationMs": 660,
+      "recordings": [
+        "real_gun_f.wav",
+        "real_bang_b3.wav",
+        "real_crack_d.wav"
+      ],
+      "sha256": "2b7b74519c17eee72ed37330a8083be79d375c149f2010ad6272a4827d7dfad8"
+    },
+    "bang_04.wav": {
+      "family": "bang",
+      "seed": 169220730,
+      "durationMs": 600,
+      "recordings": [
+        "real_gun_g.wav",
+        "real_bang_b4.wav",
+        "real_gun_i.wav"
+      ],
+      "sha256": "ffffb6009a24f5caebc7d7305a1aba0ddff6285e0bf47ad79c624bbc7a3d113a"
+    },
+    "bang_05.wav": {
+      "family": "bang",
+      "seed": 169228649,
+      "durationMs": 580,
+      "recordings": [
+        "real_gun_h.wav",
+        "real_bang_b1.wav",
+        "real_crack_a.wav"
+      ],
+      "sha256": "3eddf1b60b6ec75b0fcec3fd32a6b5b4114990d0035b27c5ad32cc39dd1c777b"
+    },
+    "bang_06.wav": {
+      "family": "bang",
+      "seed": 169236568,
+      "durationMs": 640,
+      "recordings": [
+        "real_gun_k.wav",
+        "real_bang_b2.wav",
+        "real_crack_b.wav"
+      ],
+      "sha256": "989d8a01107ddb953c0d5aae112b2e43839da8520fac6fa7b33f81a957bb2861"
+    },
+    "bang_07.wav": {
+      "family": "bang",
+      "seed": 169244487,
+      "durationMs": 580,
+      "recordings": [
+        "real_fire_a.wav",
+        "real_bang_b4.wav"
+      ],
+      "sha256": "e77560eb4e60a82c89fe5c7a306dda6300a287690c46d1bcb5137700c2a54830"
+    },
+    "bang_08.wav": {
+      "family": "bang",
+      "seed": 169252406,
+      "durationMs": 520,
+      "recordings": [
+        "real_fire_a.wav",
+        "real_bang_b1.wav"
+      ],
+      "sha256": "e593e4a0222cc1aa91126c5cb7144af246cd2ef0fa1de69c9701af1374b4ae53"
+    },
+    "bang_09.wav": {
+      "family": "bang",
+      "seed": 169260325,
+      "durationMs": 550,
+      "recordings": [
+        "real_fire_a.wav",
+        "real_bang_b2.wav"
+      ],
+      "sha256": "1458fbd491b5a9710eda68b254d2a993017c9c785aef0a9993258c33f8a5eb10"
+    },
+    "bang_10.wav": {
+      "family": "bang",
+      "seed": 169268244,
+      "durationMs": 500,
+      "recordings": [
+        "real_fire_a.wav",
+        "real_bang_b3.wav"
+      ],
+      "sha256": "3e1d06ae76b38e4554e452dc1befbab9c3d6177ba906f1329872be127d2bdee8"
+    },
+    "bang_11.wav": {
+      "family": "bang",
+      "seed": 169276163,
+      "durationMs": 820,
+      "recordings": [
+        "real_bang_b4.wav",
+        "real_boosted_e.wav",
+        "bang_05.wav"
+      ],
+      "sha256": "d0b1f6448269550d6de398797efd99eb31793fc380a85c1881712be1d56634ed"
+    },
+    "bang_12.wav": {
+      "family": "bang",
+      "seed": 169284082,
+      "durationMs": 750,
+      "recordings": [
+        "real_bang_b1.wav",
+        "real_backfire_c.wav",
+        "bang_06.wav"
+      ],
+      "sha256": "b34affe648e21575d0f17128a247b5df7bb47b62e1d1c0830a97e6c8b494b804"
+    },
+    "bang_13.wav": {
+      "family": "bang",
+      "seed": 169292001,
+      "durationMs": 780,
+      "recordings": [
+        "real_bang_b2.wav",
+        "real_boosted_e.wav",
+        "bang_01.wav"
+      ],
+      "sha256": "dbd7b2265ebba3c503db7c000bd25b24bbb3660e737d07b50483f19a072b6646"
+    },
+    "bang_14.wav": {
+      "family": "bang",
+      "seed": 169299920,
+      "durationMs": 720,
+      "recordings": [
+        "real_bang_b3.wav",
+        "real_backfire_c.wav",
+        "bang_02.wav"
+      ],
+      "sha256": "c1f98229d51411bfba40d62e140a24d233bc74ee82d4c7ec4edab096218f9616"
+    },
+    "bang_15.wav": {
+      "family": "bang",
+      "seed": 169307839,
+      "durationMs": 500,
+      "recordings": [
+        "real_bang_b3.wav",
+        "real_backfire_c.wav",
+        "bang_03.wav"
+      ],
+      "sha256": "f9f8f390c0fdbf501ade7b735b0e6c92878b8189891ff586bab283ec99bfd5d2"
+    },
+    "bang_16.wav": {
+      "family": "bang",
+      "seed": 169315758,
+      "durationMs": 460,
+      "recordings": [
+        "real_bang_b4.wav",
+        "real_boosted_e.wav",
+        "bang_04.wav"
+      ],
+      "sha256": "bead286ee0fc5dae702606746d8c446e86c007fe363036148bc0309a8a11c8c0"
+    },
+    "bang_17.wav": {
+      "family": "bang",
+      "seed": 1153032974,
+      "durationMs": 620,
+      "recordings": [
+        "real_gun_m.wav",
+        "real_bang_b3.wav",
+        "real_crack_e.wav"
+      ],
+      "sha256": "fbcbd5ca74acb5edce590a1064243ddb5fd24eb1ec45a604930b8b0dada25a5f"
+    },
+    "bang_18.wav": {
+      "family": "bang",
+      "seed": 1153040893,
+      "durationMs": 580,
+      "recordings": [
+        "real_gun_n.wav",
+        "real_bang_b4.wav",
+        "real_crack_e.wav"
+      ],
+      "sha256": "f2248f553f214102a169059ed02f3d162e0a4ebd8620adbfeea8118bc24a3a44"
+    },
+    "bang_19.wav": {
+      "family": "bang",
+      "seed": 1153048812,
+      "durationMs": 660,
+      "recordings": [
+        "real_gun_s.wav",
+        "real_bang_b1.wav",
+        "real_crack_e.wav"
+      ],
+      "sha256": "7fa6c1a444a435afd8744fa6c2163eeb322c083310299989710bcd285db2afea"
+    },
+    "bang_20.wav": {
+      "family": "bang",
+      "seed": 1153056731,
+      "durationMs": 600,
+      "recordings": [
+        "real_gun_r.wav",
+        "real_bang_b2.wav",
+        "real_crack_e.wav"
+      ],
+      "sha256": "8a3292c31bc0d3b83b7bb1b06c906442a22bb20aaee34782c25e59f2aa720790"
+    },
+    "bang_21.wav": {
+      "family": "bang",
+      "seed": 1153064650,
+      "durationMs": 640,
+      "recordings": [
+        "real_gun_p.wav",
+        "real_fire_h.wav"
+      ],
+      "sha256": "dbeb7f521d41547dab3696f1ab5c1586ec6699ddf1b681114f92d0acc7be0bd0"
+    },
+    "bang_22.wav": {
+      "family": "bang",
+      "seed": 1153072569,
+      "durationMs": 600,
+      "recordings": [
+        "real_gun_v.wav",
+        "real_fire_i.wav"
+      ],
+      "sha256": "0b1f72b6105d514e9c5f2e0ff7b190d16df1090de9c10e2dca999555082464d8"
+    },
+    "bang_23.wav": {
+      "family": "bang",
+      "seed": 1153080488,
+      "durationMs": 680,
+      "recordings": [
+        "real_gun_t.wav",
+        "real_fire_k.wav"
+      ],
+      "sha256": "91db38c18e7b1e2ae7fe2e453391854b96912999418a476e9a4644a9aec11000"
+    },
+    "bang_24.wav": {
+      "family": "bang",
+      "seed": 1153088407,
+      "durationMs": 620,
+      "recordings": [
+        "real_gun_n.wav",
+        "real_fire_g.wav"
+      ],
+      "sha256": "ccb135b7260a06541905a5fe033fbb96f2c6ef417153301a6abfa58a027619ea"
+    },
+    "burble_01.wav": {
+      "family": "burble",
+      "seed": 169323677,
+      "durationMs": 240,
+      "recordings": [
+        "real_backfire_a.wav",
+        "burble_01.wav"
+      ],
+      "sha256": "43bdccb9bbced6772fed81bca76e33415b2b5115a97b599d46ff732278230af0"
+    },
+    "burble_02.wav": {
+      "family": "burble",
+      "seed": 169331596,
+      "durationMs": 220,
+      "recordings": [
+        "real_boosted_e.wav",
+        "burble_02.wav"
+      ],
+      "sha256": "882e55bd602f5e544c858be62869e2b2a8a09091ecd785ed52a53a76e31c2dbe"
+    },
+    "burble_03.wav": {
+      "family": "burble",
+      "seed": 169339515,
+      "durationMs": 260,
+      "recordings": [
+        "real_bang_b3.wav",
+        "burble_03.wav"
+      ],
+      "sha256": "b883197a55a84a02d215db9f6776b3fe65600552cfd8f29eb7cde33db9022488"
+    },
+    "burble_04.wav": {
+      "family": "burble",
+      "seed": 169347434,
+      "durationMs": 230,
+      "recordings": [
+        "real_backfire_a.wav",
+        "burble_04.wav"
+      ],
+      "sha256": "26dd0c748cb4d078768e1b08cff792f3edbe47edafa01d5486f968a8bf9cdb68"
+    },
+    "burble_05.wav": {
+      "family": "burble",
+      "seed": 169355353,
+      "durationMs": 270,
+      "recordings": [
+        "real_bang_b1.wav",
+        "burble_05.wav"
+      ],
+      "sha256": "5f3f87e41d64f6b1ddf42d361dcd94fc8b53cb790f438e106a9a781c762d1397"
+    },
+    "burble_06.wav": {
+      "family": "burble",
+      "seed": 169363272,
+      "durationMs": 240,
+      "recordings": [
+        "real_boosted_e.wav",
+        "burble_06.wav"
+      ],
+      "sha256": "980025b4fbd1e56afac4569f42eaec30ad79a9224ad36cf8d9323e34cbefc244"
+    },
+    "burble_07.wav": {
+      "family": "burble",
+      "seed": 169371191,
+      "durationMs": 260,
+      "recordings": [
+        "real_fire_e.wav",
+        "real_bang_b2.wav"
+      ],
+      "sha256": "7ad175811702df8e9ef937397a131342a9d1de0ffa2db17280b5d21cb4a11cac"
+    },
+    "burble_08.wav": {
+      "family": "burble",
+      "seed": 169379110,
+      "durationMs": 240,
+      "recordings": [
+        "real_fire_d.wav",
+        "real_bang_b3.wav"
+      ],
+      "sha256": "fb2088243d2cf7e1bb5cf2e760c34f679193331d8bc7806f53a3f420c629488c"
+    },
+    "burble_09.wav": {
+      "family": "burble",
+      "seed": 169387029,
+      "durationMs": 280,
+      "recordings": [
+        "real_fire_b.wav",
+        "real_bang_b4.wav"
+      ],
+      "sha256": "9fe54195fb67ab9fbb57427d631b0e77a3c59309f626070e9857cf24af9dc1b0"
+    },
+    "burble_10.wav": {
+      "family": "burble",
+      "seed": 169394948,
+      "durationMs": 250,
+      "recordings": [
+        "real_fire_e.wav",
+        "real_bang_b1.wav"
+      ],
+      "sha256": "fe495437c12599343104fe5580952962697ddd187186cfb1f2134dac26fd8c54"
+    },
+    "burble_11.wav": {
+      "family": "burble",
+      "seed": 169402867,
+      "durationMs": 270,
+      "recordings": [
+        "real_fire_d.wav",
+        "real_bang_b2.wav"
+      ],
+      "sha256": "04cc780897ace1ea944abc6038e1031faae7a2f2bb549f688db71843f4f0de8a"
+    },
+    "burble_12.wav": {
+      "family": "burble",
+      "seed": 169410786,
+      "durationMs": 240,
+      "recordings": [
+        "real_fire_b.wav",
+        "real_bang_b3.wav"
+      ],
+      "sha256": "b32fd00d36075e627e1dc09bbb99c7246b75e1b22a6fefc41ff92a53b719b261"
+    },
+    "burble_13.wav": {
+      "family": "burble",
+      "seed": 1153508114,
+      "durationMs": 260,
+      "recordings": [
+        "real_fire_j.wav",
+        "real_gun_s.wav"
+      ],
+      "sha256": "0344ad40b1e89ab097c680ccf0026341476bc3fa14237b17ee49ab1aa44ef361"
+    },
+    "burble_14.wav": {
+      "family": "burble",
+      "seed": 1153516033,
+      "durationMs": 240,
+      "recordings": [
+        "real_fire_k.wav",
+        "real_gun_p.wav"
+      ],
+      "sha256": "02429fdff4b76ad21b916f34ca54a80c95887461d0a456729d3b0c85b958a0b6"
+    },
+    "burble_15.wav": {
+      "family": "burble",
+      "seed": 1153523952,
+      "durationMs": 280,
+      "recordings": [
+        "real_fire_g.wav",
+        "real_gun_s.wav"
+      ],
+      "sha256": "874530c90614cdcf39df84cb3430e41b6be8c26676c01756f863e111f979bae9"
+    },
+    "burble_16.wav": {
+      "family": "burble",
+      "seed": 1153531871,
+      "durationMs": 250,
+      "recordings": [
+        "real_fire_j.wav",
+        "real_gun_p.wav"
+      ],
+      "sha256": "df62c92218ff4e5506b3ef390d6890de28292ec54028e2deabfdc4da8b13d854"
+    },
+    "boom_01.wav": {
+      "family": "boom",
+      "seed": 169418705,
+      "durationMs": 950,
+      "recordings": [
+        "real_gun_a.wav",
+        "real_crack_a.wav",
+        "real_bang_b1.wav"
+      ],
+      "sha256": "a6af7e874173ff42cb7eae7b17317015cc200a8bc5bb53a3bc7f1ca3aaa4f596"
+    },
+    "boom_02.wav": {
+      "family": "boom",
+      "seed": 169426624,
+      "durationMs": 880,
+      "recordings": [
+        "real_gun_b.wav",
+        "real_crack_b.wav",
+        "real_gun_j.wav"
+      ],
+      "sha256": "8bae8d003680092e44e5a7ae7d500d6f7ae29b6fa9ca30f694d9628666e6c534"
+    },
+    "boom_03.wav": {
+      "family": "boom",
+      "seed": 169434543,
+      "durationMs": 1000,
+      "recordings": [
+        "real_gun_c.wav",
+        "real_crack_c.wav",
+        "real_bang_b3.wav"
+      ],
+      "sha256": "a4a18c6edfeaa2daea1231b4d476cf24a8dc3f3c2847c688bfde2d47c87c0a4f"
+    },
+    "boom_04.wav": {
+      "family": "boom",
+      "seed": 169442462,
+      "durationMs": 920,
+      "recordings": [
+        "real_gun_d.wav",
+        "real_crack_d.wav",
+        "real_gun_j.wav"
+      ],
+      "sha256": "5b0666d7b08ec10038b13fd022f056265bb01f4b2b365fd5a63595a6f7307f22"
+    },
+    "boom_05.wav": {
+      "family": "boom",
+      "seed": 169450381,
+      "durationMs": 980,
+      "recordings": [
+        "real_gun_e.wav",
+        "real_gun_i.wav",
+        "real_bang_b1.wav"
+      ],
+      "sha256": "6d436d9abe59f3eb5dfed6c3822e21b149746af97a359bfa9acd2d463a9a5bb8"
+    },
+    "boom_06.wav": {
+      "family": "boom",
+      "seed": 169458300,
+      "durationMs": 900,
+      "recordings": [
+        "real_gun_f.wav",
+        "real_crack_a.wav",
+        "real_gun_j.wav"
+      ],
+      "sha256": "fb9a2ede728b2df407ca020f7708074b73200a44afd8fe4c85bd5d1f3e842cc6"
+    },
+    "boom_07.wav": {
+      "family": "boom",
+      "seed": 169466219,
+      "durationMs": 950,
+      "recordings": [
+        "real_gun_g.wav",
+        "real_crack_b.wav",
+        "real_bang_b3.wav"
+      ],
+      "sha256": "37befae48ea401ad90b8f5e0468283d77f9af81f327ba0b5e0c54d9bb8daf040"
+    },
+    "boom_08.wav": {
+      "family": "boom",
+      "seed": 169474138,
+      "durationMs": 880,
+      "recordings": [
+        "real_gun_h.wav",
+        "real_crack_c.wav",
+        "real_gun_j.wav"
+      ],
+      "sha256": "9c0e9cff3c908ce735baa50c041faa2425fa2f74331c7da006946527ee5a4f0a"
+    },
+    "boom_09.wav": {
+      "family": "boom",
+      "seed": 169482057,
+      "durationMs": 1000,
+      "recordings": [
+        "real_gun_k.wav",
+        "real_crack_d.wav",
+        "real_bang_b1.wav"
+      ],
+      "sha256": "c81bc16bbb6b2e75dc5c12c66fb7524c04756759835dafef89171d50dd04acde"
+    },
+    "boom_10.wav": {
+      "family": "boom",
+      "seed": 169489976,
+      "durationMs": 920,
+      "recordings": [
+        "real_gun_l.wav",
+        "real_gun_i.wav",
+        "real_gun_j.wav"
+      ],
+      "sha256": "3266cc21fa9a7748b86f10c04db2d9be86fece3557a071cb8e339818577e0784"
+    },
+    "boom_11.wav": {
+      "family": "boom",
+      "seed": 169497895,
+      "durationMs": 980,
+      "recordings": [
+        "real_gun_a.wav",
+        "real_crack_a.wav",
+        "real_bang_b3.wav"
+      ],
+      "sha256": "380813b07d3289e5b9cead2ed16777910f44d140b46c0eafc76f0b0ccb0b8576"
+    },
+    "boom_12.wav": {
+      "family": "boom",
+      "seed": 169505814,
+      "durationMs": 900,
+      "recordings": [
+        "real_gun_b.wav",
+        "real_crack_b.wav",
+        "real_gun_j.wav"
+      ],
+      "sha256": "0ed7b38fe93f15b52293cfb57f34e7ed7a886b745be2960023de22f176a536c2"
+    },
+    "boom_13.wav": {
+      "family": "boom",
+      "seed": 1154014930,
+      "durationMs": 980,
+      "recordings": [
+        "real_gun_t.wav",
+        "real_crack_e.wav",
+        "real_bang_b2.wav"
+      ],
+      "sha256": "b4571ee1acb1646da965a70a6a09bc297d708dc8805df4b62e0fc73d5059edf2"
+    },
+    "boom_14.wav": {
+      "family": "boom",
+      "seed": 1154022849,
+      "durationMs": 920,
+      "recordings": [
+        "real_gun_v.wav",
+        "real_crack_f.wav",
+        "real_gun_j.wav"
+      ],
+      "sha256": "699634cb619ec4243bcb58870b179466a8b90b7ebf6041c4e7b544eb8f358f51"
+    },
+    "boom_15.wav": {
+      "family": "boom",
+      "seed": 1154030768,
+      "durationMs": 1000,
+      "recordings": [
+        "real_gun_n.wav",
+        "real_crack_e.wav",
+        "real_bang_b4.wav"
+      ],
+      "sha256": "a6411b1f9608bdff341da6de87cf40d178118495012cc9a94c246d182013d046"
+    },
+    "boom_16.wav": {
+      "family": "boom",
+      "seed": 1154038687,
+      "durationMs": 950,
+      "recordings": [
+        "real_gun_m.wav",
+        "real_crack_f.wav",
+        "real_gun_j.wav"
+      ],
+      "sha256": "8543c95cc11592347f6c30b9790958fa2cf46351d28464db3163bb16a0d866a0"
+    },
+    "als_hit_01.wav": {
+      "family": "als_hit",
+      "seed": 169513733,
+      "durationMs": 260,
+      "recordings": [
+        "real_bang_b1.wav",
+        "real_backfire_c.wav"
+      ],
+      "sha256": "1c6dba490eea040f9a127cccded10c10e8a2ac1eee6feb0edc7ba2a2b0b80757"
+    },
+    "als_hit_02.wav": {
+      "family": "als_hit",
+      "seed": 169521652,
+      "durationMs": 240,
+      "recordings": [
+        "real_bang_b2.wav",
+        "real_backfire_a.wav"
+      ],
+      "sha256": "2e422b1434701944ff084970614f77cb535f59fdb1206d433d15c61c4c4acb1c"
+    },
+    "als_hit_03.wav": {
+      "family": "als_hit",
+      "seed": 169529571,
+      "durationMs": 280,
+      "recordings": [
+        "real_bang_b3.wav",
+        "real_backfire_c.wav"
+      ],
+      "sha256": "99dd5b2464e60c0eee04160cb89a59f782c49cfc367e3387de489d5a74090760"
+    },
+    "als_hit_04.wav": {
+      "family": "als_hit",
+      "seed": 169537490,
+      "durationMs": 250,
+      "recordings": [
+        "real_bang_b4.wav",
+        "real_backfire_a.wav"
+      ],
+      "sha256": "21d61b9c27f2dd33d43a57483db10d2bc34c287bf541d796205402a7858dc470"
+    },
+    "als_hit_05.wav": {
+      "family": "als_hit",
+      "seed": 169545409,
+      "durationMs": 270,
+      "recordings": [
+        "real_bang_b1.wav",
+        "real_backfire_c.wav"
+      ],
+      "sha256": "f15e16880f6d67c22a1ddfa20fd9fc74d4a620cc96d5b94fe0d913c2e1784d65"
+    },
+    "als_hit_06.wav": {
+      "family": "als_hit",
+      "seed": 169553328,
+      "durationMs": 240,
+      "recordings": [
+        "real_bang_b2.wav",
+        "real_backfire_a.wav"
+      ],
+      "sha256": "966c1e1ec3d351348b5eec7a83dd74abc87cacde71b3e9211276e8a65b995bb2"
+    },
+    "als_hit_07.wav": {
+      "family": "als_hit",
+      "seed": 169561247,
+      "durationMs": 290,
+      "recordings": [
+        "real_bang_b3.wav",
+        "real_backfire_c.wav"
+      ],
+      "sha256": "77bd6faa20bf0d2aaaf623c36ef8a900501363ebf5352d8c858a15fd58462b69"
+    },
+    "als_hit_08.wav": {
+      "family": "als_hit",
+      "seed": 169569166,
+      "durationMs": 260,
+      "recordings": [
+        "real_bang_b4.wav",
+        "real_backfire_a.wav"
+      ],
+      "sha256": "24ceb61e6233f1373cd7581c07604030908951d961bf77f7940d191d44b8ec50"
+    },
+    "als_hit_09.wav": {
+      "family": "als_hit",
+      "seed": 169577085,
+      "durationMs": 280,
+      "recordings": [
+        "real_gun_l.wav",
+        "real_crack_b.wav"
+      ],
+      "sha256": "9c165f6ff3754104c04d86ac9fbedfc83a1683a04a15cc6309cf976ea5951fd5"
+    },
+    "als_hit_10.wav": {
+      "family": "als_hit",
+      "seed": 169585004,
+      "durationMs": 260,
+      "recordings": [
+        "real_gun_a.wav",
+        "real_crack_c.wav"
+      ],
+      "sha256": "d6c922c112ee8471748c275daa3d41fad9cc60a98909ce80d80525e5951c56aa"
+    },
+    "als_hit_11.wav": {
+      "family": "als_hit",
+      "seed": 169592923,
+      "durationMs": 300,
+      "recordings": [
+        "real_gun_b.wav",
+        "real_crack_d.wav"
+      ],
+      "sha256": "9973bcbda0d39d41e57713fa7e7cf23547722c4c9670d8a21a20d5739c136992"
+    },
+    "als_hit_12.wav": {
+      "family": "als_hit",
+      "seed": 169600842,
+      "durationMs": 270,
+      "recordings": [
+        "real_gun_c.wav",
+        "real_gun_i.wav"
+      ],
+      "sha256": "6f4293b2a7bfd3f10f44e86197ae412f052e2bad179cadafbf546f8f6ade40da"
+    },
+    "als_hit_13.wav": {
+      "family": "als_hit",
+      "seed": 169608761,
+      "durationMs": 280,
+      "recordings": [
+        "real_gun_d.wav",
+        "real_crack_a.wav"
+      ],
+      "sha256": "41ec30fa1e7266db83b037e03579a5510176ee454ac1013a7f338f80c6112c7b"
+    },
+    "als_hit_14.wav": {
+      "family": "als_hit",
+      "seed": 169616680,
+      "durationMs": 260,
+      "recordings": [
+        "real_gun_e.wav",
+        "real_crack_b.wav"
+      ],
+      "sha256": "7c4f00c30b9da5d41fa7fa259544df3594542cef9609b6ac0961de2691716791"
+    },
+    "als_hit_15.wav": {
+      "family": "als_hit",
+      "seed": 169624599,
+      "durationMs": 300,
+      "recordings": [
+        "real_gun_f.wav",
+        "real_crack_c.wav"
+      ],
+      "sha256": "e42da33e24ddcf037206bbb08fb12030a9546be1e2b8981b502bf82c26aa7ccd"
+    },
+    "als_hit_16.wav": {
+      "family": "als_hit",
+      "seed": 169632518,
+      "durationMs": 270,
+      "recordings": [
+        "real_gun_g.wav",
+        "real_crack_d.wav"
+      ],
+      "sha256": "816635e73e7383eaabcc0374f99306499c7a5259d58a31a9878144d4b5aaf9a1"
+    },
+    "als_bang_01.wav": {
+      "family": "als_bang",
+      "seed": 169640437,
+      "durationMs": 520,
+      "recordings": [
+        "real_bang_b4.wav",
+        "real_backfire_c.wav"
+      ],
+      "sha256": "bb3fa69e285a7a0f0a23e0487a56ff10cde213bdf65689ca6a8b33b78ab11e5a"
+    },
+    "als_bang_02.wav": {
+      "family": "als_bang",
+      "seed": 169648356,
+      "durationMs": 480,
+      "recordings": [
+        "real_bang_b3.wav",
+        "real_boosted_e.wav"
+      ],
+      "sha256": "123afe3ea146a4f8e936810cf966217306dc3c98012bb5263289e7f872791663"
+    },
+    "als_bang_03.wav": {
+      "family": "als_bang",
+      "seed": 169656275,
+      "durationMs": 550,
+      "recordings": [
+        "real_bang_b2.wav",
+        "real_backfire_c.wav"
+      ],
+      "sha256": "8a9e49cc24acb750d1f9bb5d662c621ce1c8d3c99b39b4e82e193603a5d0af6a"
+    },
+    "als_bang_04.wav": {
+      "family": "als_bang",
+      "seed": 169664194,
+      "durationMs": 500,
+      "recordings": [
+        "real_bang_b1.wav",
+        "real_boosted_e.wav"
+      ],
+      "sha256": "1e951b694d038a69807b2466b685192e9d05e376e9e64b9104a9f4797e12ecc3"
+    },
+    "als_bang_05.wav": {
+      "family": "als_bang",
+      "seed": 169672113,
+      "durationMs": 520,
+      "recordings": [
+        "real_bang_b4.wav",
+        "real_backfire_c.wav"
+      ],
+      "sha256": "d143d041f95add05e91f6b83d09da499f58ad2c43197f015efba36d126cb6f5b"
+    },
+    "als_bang_06.wav": {
+      "family": "als_bang",
+      "seed": 169680032,
+      "durationMs": 480,
+      "recordings": [
+        "real_bang_b3.wav",
+        "real_boosted_e.wav"
+      ],
+      "sha256": "d19f4fde7a463fd57c7daab6c99ac45c1eff5d4980b627c5d4689a0eebf92de5"
+    },
+    "als_bang_07.wav": {
+      "family": "als_bang",
+      "seed": 169687951,
+      "durationMs": 660,
+      "recordings": [
+        "real_gun_k.wav",
+        "real_gun_j.wav"
+      ],
+      "sha256": "62632d4c77374e99e2bc0832fbb50b5e23e46d33bc824f27e6865220b5c8730d"
+    },
+    "als_bang_08.wav": {
+      "family": "als_bang",
+      "seed": 169695870,
+      "durationMs": 600,
+      "recordings": [
+        "real_gun_l.wav",
+        "real_gun_j.wav"
+      ],
+      "sha256": "e65fb3c980cc94ce986809c3a410c1423b21612d7f9bce503d87882536469d02"
+    },
+    "als_bang_09.wav": {
+      "family": "als_bang",
+      "seed": 169703789,
+      "durationMs": 620,
+      "recordings": [
+        "real_gun_a.wav",
+        "real_gun_j.wav"
+      ],
+      "sha256": "5e219bf1c448b9d254ac2d9dbbc084b34452ff1dc89c9fc810f96bb8f2d67218"
+    },
+    "als_bang_10.wav": {
+      "family": "als_bang",
+      "seed": 169711708,
+      "durationMs": 580,
+      "recordings": [
+        "real_gun_b.wav",
+        "real_gun_j.wav"
+      ],
+      "sha256": "50f552a2822b80e9019d6d850321815600ef33873fc00a031dd5de5a2a20e32f"
+    },
+    "turbo_flutter_01.wav": {
+      "family": "turbo",
+      "seed": 10397019,
+      "recordings": [],
+      "sha256": "8854c7401e57fb09308706af2eca088e6d1a9efd3d51567b73954394273e1d24"
+    },
+    "turbo_flutter_02.wav": {
+      "family": "turbo",
+      "seed": 10501748,
+      "recordings": [],
+      "sha256": "98dc08c474d789a51d1e379df015bf9ab3f80314ab7c28e433f50502ac30773d"
+    },
+    "turbo_bov_01.wav": {
+      "family": "turbo",
+      "seed": 10606477,
+      "recordings": [],
+      "sha256": "9fd9d8c54b21ca8ea40d3ec69c3ecf787f706b085c866cfa6901d4c7c117495f"
+    },
+    "turbo_bov_02.wav": {
+      "family": "turbo",
+      "seed": 10711206,
+      "recordings": [],
+      "sha256": "a4fd9340210bba6030e567dac8f30cdbfdf7d707f161d82f0368fec917130127"
+    },
+    "turbo_flutter_03.wav": {
+      "family": "turbo",
+      "seed": 1192577438,
+      "recordings": [
+        "real_air_b.wav"
+      ],
+      "sha256": "b8da582c51c5815c053f7680e97f3807368b62c8e08edd3a4d39643fb5627985"
+    },
+    "turbo_flutter_04.wav": {
+      "family": "turbo",
+      "seed": 1192585357,
+      "recordings": [
+        "real_air_d.wav"
+      ],
+      "sha256": "c0d20be03cb94667f5a83e206dfc461ce70315a8735385c0624491128f624539"
+    },
+    "turbo_flutter_05.wav": {
+      "family": "turbo",
+      "seed": 1192593276,
+      "recordings": [
+        "real_air_f.wav"
+      ],
+      "sha256": "a3124bb1c0706a28a3373a3527012e94ef9ff43680b0ca7febfd8e9e06b7d0ea"
+    },
+    "turbo_flutter_06.wav": {
+      "family": "turbo",
+      "seed": 1192601195,
+      "recordings": [
+        "real_air_h.wav"
+      ],
+      "sha256": "092de14cea8e2266f12bf7fcaaade4fcba9f30d09d14d6e2a9f31a3936e6f8c0"
+    },
+    "turbo_flutter_07.wav": {
+      "family": "turbo",
+      "seed": 1192609114,
+      "recordings": [
+        "real_air_j.wav"
+      ],
+      "sha256": "28ecaefe967252a816d4954fb3ac2b422fb5f776c14566a23a4c35bdcd9812ec"
+    },
+    "turbo_flutter_08.wav": {
+      "family": "turbo",
+      "seed": 1192617033,
+      "recordings": [
+        "real_air_l.wav"
+      ],
+      "sha256": "170b982d1119a4beb0cad921e282b0a2246ba4c061981973307b50c955f57a7f"
+    },
+    "turbo_flutter_09.wav": {
+      "family": "turbo",
+      "seed": 1192624952,
+      "recordings": [
+        "real_air_a.wav"
+      ],
+      "sha256": "6407db115ca9561ce01b63f26acb66e939aedb3e156d735c54d6511b2d7082ba"
+    },
+    "turbo_flutter_10.wav": {
+      "family": "turbo",
+      "seed": 1192632871,
+      "recordings": [
+        "real_air_c.wav"
+      ],
+      "sha256": "36280e0fc9689ad9abe8c84e8072a210be43aad2b0469d5c701be9a140ee396d"
+    },
+    "turbo_bov_03.wav": {
+      "family": "turbo",
+      "seed": 1190550174,
+      "recordings": [
+        "real_air_a.wav",
+        "real_air_f.wav"
+      ],
+      "sha256": "b5356c187ecea0cfe32d57953d5f1870b5c489683d9478affdc202c71326b1d9"
+    },
+    "turbo_bov_04.wav": {
+      "family": "turbo",
+      "seed": 1190558093,
+      "recordings": [
+        "real_air_b.wav",
+        "real_air_i.wav"
+      ],
+      "sha256": "fbcb9dd9cfe0aee9a9db4da008b4ccb167edaeb20ec2237bb67477c6b2cf59e5"
+    },
+    "turbo_bov_05.wav": {
+      "family": "turbo",
+      "seed": 1190566012,
+      "recordings": [
+        "real_air_c.wav",
+        "real_air_l.wav"
+      ],
+      "sha256": "e10acef9e3ca76e126e5a962ba94ca118d43d35e9c07e27b00d499cefdebd959"
+    },
+    "turbo_bov_06.wav": {
+      "family": "turbo",
+      "seed": 1190573931,
+      "recordings": [
+        "real_air_d.wav",
+        "real_air_b.wav"
+      ],
+      "sha256": "0bddf966ac16de5393372785b320149af8bfc91473b4e5081cbdb8ef28f0c6c4"
+    },
+    "turbo_bov_07.wav": {
+      "family": "turbo",
+      "seed": 1190581850,
+      "recordings": [
+        "real_air_e.wav",
+        "real_air_e.wav"
+      ],
+      "sha256": "1185e81fbffe6af3a61249fcb9afcbc199957668cff92224947af249b23064b0"
+    },
+    "turbo_bov_08.wav": {
+      "family": "turbo",
+      "seed": 1190589769,
+      "recordings": [
+        "real_air_f.wav",
+        "real_air_h.wav"
+      ],
+      "sha256": "9c4df2dff3c93a7b6fb6da18f6f442d6681b16fa88478c940cb30d97ec1b993a"
+    },
+    "turbo_bov_09.wav": {
+      "family": "turbo",
+      "seed": 1190597688,
+      "recordings": [
+        "real_air_g.wav",
+        "real_air_k.wav"
+      ],
+      "sha256": "02a5e0041800ff81871c10c19c35a3185ef84fe219e0bf8bcba2b7492929d3e3"
+    },
+    "turbo_bov_10.wav": {
+      "family": "turbo",
+      "seed": 1190605607,
+      "recordings": [
+        "real_air_h.wav",
+        "real_air_a.wav"
+      ],
+      "sha256": "59c381bbc0d560608590db952fcba7bcbd223077558d49ab8f9cbc6666c7ad8b"
+    },
+    "whoosh_01.wav": {
+      "family": "whoosh",
+      "seed": 1184940254,
+      "durationMs": 724,
+      "recordings": [
+        "real_flame_a.wav",
+        "real_air_d.wav"
+      ],
+      "sha256": "5fb4bc09e676493d1bb102927870da2c79f03670134268396ca579037d97869c"
+    },
+    "whoosh_02.wav": {
+      "family": "whoosh",
+      "seed": 1184948173,
+      "durationMs": 925,
+      "recordings": [
+        "real_flame_b.wav",
+        "real_air_e.wav"
+      ],
+      "sha256": "9b817043b79f308fd3c41a607590150114540eff59ab85e946821936a5133073"
+    },
+    "whoosh_03.wav": {
+      "family": "whoosh",
+      "seed": 1184956092,
+      "durationMs": 979,
+      "recordings": [
+        "real_flame_c.wav",
+        "real_air_f.wav"
+      ],
+      "sha256": "e92e3cdd17c5c7d418836c6a23bc061d88e321e946c34b39ce1b9507fe33627c"
+    },
+    "whoosh_04.wav": {
+      "family": "whoosh",
+      "seed": 1184964011,
+      "durationMs": 895,
+      "recordings": [
+        "real_flame_d.wav",
+        "real_air_g.wav"
+      ],
+      "sha256": "1c38c1f222f17c030fc76b02e786ec18c19672975971383c663c2e7b6473f8d5"
+    },
+    "whoosh_05.wav": {
+      "family": "whoosh",
+      "seed": 1184971930,
+      "durationMs": 858,
+      "recordings": [
+        "real_flame_e.wav",
+        "real_air_h.wav"
+      ],
+      "sha256": "7aa872d47043ee0e7e7fbf043d6043f04c5ef5890ece8c642ff0c0fb158403ce"
+    },
+    "whoosh_06.wav": {
+      "family": "whoosh",
+      "seed": 1184979849,
+      "durationMs": 713,
+      "recordings": [
+        "real_flame_f.wav",
+        "real_air_i.wav"
+      ],
+      "sha256": "c6963b66143177c9d0978f7268bafaa834df04892df717667c16992882f4a557"
+    },
+    "whoosh_07.wav": {
+      "family": "whoosh",
+      "seed": 1184987768,
+      "durationMs": 930,
+      "recordings": [
+        "real_flame_g.wav",
+        "real_air_j.wav"
+      ],
+      "sha256": "9e78d4c8ee4ca877ba9115893ea5442f8a6bbed8701882926627892250b2365f"
+    },
+    "whoosh_08.wav": {
+      "family": "whoosh",
+      "seed": 1184995687,
+      "durationMs": 802,
+      "recordings": [
+        "real_flame_h.wav",
+        "real_air_k.wav"
+      ],
+      "sha256": "e5fb2ed4ef27dfd8d8e8ed802f92b7e2fb5cb8171dc6396b1afd47685a45f064"
+    },
+    "hiss_01.wav": {
+      "family": "hiss",
+      "seed": 1185447070,
+      "durationMs": 577,
+      "recordings": [
+        "real_steam_a.wav"
+      ],
+      "sha256": "c9a7c2cccba9226786f8fc0528ad3078f4192ebca9df77aa1272f30afdfdfbea"
+    },
+    "hiss_02.wav": {
+      "family": "hiss",
+      "seed": 1185454989,
+      "durationMs": 841,
+      "recordings": [
+        "real_steam_b.wav"
+      ],
+      "sha256": "cf400c2571e45f679aa8f3be69e1c4174fdb49f90236bd8d06dab566f632c6cb"
+    },
+    "hiss_03.wav": {
+      "family": "hiss",
+      "seed": 1185462908,
+      "durationMs": 581,
+      "recordings": [
+        "real_steam_c.wav"
+      ],
+      "sha256": "664fada704ee36b643233ce2493275967505b1a397285e1a0cb234daa0a8d717"
+    },
+    "hiss_04.wav": {
+      "family": "hiss",
+      "seed": 1185470827,
+      "durationMs": 571,
+      "recordings": [
+        "real_steam_d.wav"
+      ],
+      "sha256": "bbb0de6ad9d7cdc79242d61a0f37f4f3e72ec699cfe05322169675b92eef684e"
+    },
+    "hiss_05.wav": {
+      "family": "hiss",
+      "seed": 1185478746,
+      "durationMs": 812,
+      "recordings": [
+        "real_steam_e.wav"
+      ],
+      "sha256": "ea3caac3833acf02015510e226caf2c7b88935c382049d52ecedaa030def31d2"
+    },
+    "hiss_06.wav": {
+      "family": "hiss",
+      "seed": 1185486665,
+      "durationMs": 731,
+      "recordings": [
+        "real_steam_f.wav"
+      ],
+      "sha256": "f2cbe6498aacc262236287755292ae9c5c7369ce63cc6898e5c4e51f5cd7af28"
+    },
+    "tick_01.wav": {
+      "family": "tick",
+      "seed": 1185953886,
+      "durationMs": 160,
+      "recordings": [
+        "real_tick_a.wav"
+      ],
+      "sha256": "4f51c214045c2dac69ee884ab44563b563687d412d99295acf80c3ddbbbbbb07"
+    },
+    "tick_02.wav": {
+      "family": "tick",
+      "seed": 1185961805,
+      "durationMs": 160,
+      "recordings": [
+        "real_tick_b.wav"
+      ],
+      "sha256": "d17b091e07b6ddb043a717d3cd964a9f4f20903a0771f7e691fa0ea2d39e396f"
+    },
+    "tick_03.wav": {
+      "family": "tick",
+      "seed": 1185969724,
+      "durationMs": 160,
+      "recordings": [
+        "real_tick_c.wav"
+      ],
+      "sha256": "8d602d52f0b0ae64d32a7d8c4b65a1d44ddab1c6e214193ebfd5364b41e18ab7"
+    },
+    "tick_04.wav": {
+      "family": "tick",
+      "seed": 1185977643,
+      "durationMs": 160,
+      "recordings": [
+        "real_tick_d.wav"
+      ],
+      "sha256": "dbb0a86ee7dd0f594eb0a0cf6f8530ef7b03ae2571c3fd1b2023def2e200d947"
+    },
+    "tick_05.wav": {
+      "family": "tick",
+      "seed": 1185985562,
+      "durationMs": 160,
+      "recordings": [
+        "real_tick_e.wav"
+      ],
+      "sha256": "d096d1b523f797ce0b89f410c0bc73a4cc5e80f880a8a098a5d4aca4d02e3fff"
+    },
+    "tick_06.wav": {
+      "family": "tick",
+      "seed": 1185993481,
+      "durationMs": 160,
+      "recordings": [
+        "real_tick_f.wav"
+      ],
+      "sha256": "067168ca19bf6b27c2d7081b714bdfbd086be36f2a2cc8da4f4598b3338c8d6b"
+    },
+    "tick_07.wav": {
+      "family": "tick",
+      "seed": 1186001400,
+      "durationMs": 160,
+      "recordings": [
+        "real_tick_g.wav"
+      ],
+      "sha256": "0e19f156f7e443e7447472d888e787e519f74599f25ea4e8fc69cdb87f561056"
+    },
+    "tick_08.wav": {
+      "family": "tick",
+      "seed": 1186009319,
+      "durationMs": 160,
+      "recordings": [
+        "real_tick_a.wav"
+      ],
+      "sha256": "12f2029578dbf7b0284890122548c7e3349f6f52e2d83c7648ad55a84a800d9d"
+    },
+    "tick_09.wav": {
+      "family": "tick",
+      "seed": 1186017238,
+      "durationMs": 160,
+      "recordings": [
+        "real_tick_b.wav"
+      ],
+      "sha256": "7c2d2e4ae65b4d508298bb764a5a439d9ea60e2e656449464708b96ae5f42300"
+    },
+    "tick_10.wav": {
+      "family": "tick",
+      "seed": 1186025157,
+      "durationMs": 160,
+      "recordings": [
+        "real_tick_c.wav"
+      ],
+      "sha256": "5b4e17ce85fed6498f79d3b252479b078b9df3be6c675a60c47ca235a376d149"
+    }
+  }
+}

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 512px;
+  height: 512px;
+  overflow: hidden;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Orbitron', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Icon */
+#icon {
+  margin-bottom: 12px;
+  filter: drop-shadow(0 0 12px rgba(72,203,255,0.5));
+}
+
+/* Distance row */
+#row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  line-height: 1;
+}
+
+#val {
+  font-size: 82px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+}
+
+#unit {
+  font-size: 32px;
+  font-weight: 700;
+  color: #48CBFF;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+}
+
+/* Line */
+#line {
+  width: 240px;
+  height: 2px;
+  margin-top: 14px;
+  background: linear-gradient(90deg, transparent 0%, #48CBFF 30%, #48CBFF 70%, transparent 100%);
+  opacity: 0.7;
+}
+
+/* Arrow */
+#arrow {
+  margin-top: 14px;
+  filter: drop-shadow(0 2px 8px rgba(72,203,255,0.4));
+}
+</style>
+</head>
+<body>
+<div id="container">
+  <div id="icon">
+    <svg width="72" height="72" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#48CBFF"/>
+      <circle cx="12" cy="9" r="3" fill="#0d1117" stroke="white" stroke-width="1.2"/>
+      <circle cx="12" cy="9" r="1.2" fill="white"/>
+    </svg>
+  </div>
+
+  <div id="row">
+    <span id="val">0</span>
+    <span id="unit">M</span>
+  </div>
+
+  <div id="line"></div>
+
+  <div id="arrow">
+    <svg width="40" height="24" viewBox="0 0 40 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 24L0 0h40L20 24z" fill="#48CBFF" opacity="0.8"/>
+    </svg>
+  </div>
+</div>
+<script>
+var valEl = document.getElementById('val');
+var unitEl = document.getElementById('unit');
+
+window.addEventListener('message', function(e) {
+  if (!e.data || e.data.distance === undefined) return;
+  var d = e.data.distance;
+  if (!d) return;
+  var p = d.match(/^([\d.]+)\s*(.*)$/);
+  if (p) {
+    valEl.textContent = p[1];
+    unitEl.textContent = (p[2] || 'M').toUpperCase();
+  } else {
+    valEl.textContent = d;
+    unitEl.textContent = '';
+  }
+});
+</script>
+</body>
+</html>

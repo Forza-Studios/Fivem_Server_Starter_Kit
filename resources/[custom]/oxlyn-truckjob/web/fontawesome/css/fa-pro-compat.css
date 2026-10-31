@@ -1,0 +1,179 @@
+/*!
+ * fa-pro-compat.css — OXLYN Software
+ * ---------------------------------------------------------------------------
+ * These UIs were built against Font Awesome PRO 7. This resource now ships
+ * Font Awesome FREE 7 locally (fontawesome/css/all.min.css), so no CDN can
+ * ever break the icons again.
+ *
+ * This file bridges the two:
+ *   1. Pro-only style families (sharp / light / thin / duotone / chisel / ...)
+ *      are rendered with the Free Solid face. Without this they would render
+ *      NOTHING — Font Awesome 7 only emits the ::before glyph for its own
+ *      style classes.
+ *   2. Pro-only icon names are aliased to the closest Free icon.
+ *
+ * Do not edit by hand — regenerate if you add new icons.
+ */
+
+/* ── 1. Pro style families → Free Solid ─────────────────────────────────── */
+.fal,
+.fat,
+.fad,
+.fass,
+.fasr,
+.fasl,
+.fast,
+.fasds,
+.fadr,
+.fadl,
+.fadt,
+.fak,
+.fa-kit,
+.fa-light,
+.fa-thin,
+.fa-duotone,
+.fa-sharp,
+.fa-sharp-solid,
+.fa-sharp-regular,
+.fa-sharp-light,
+.fa-sharp-thin,
+.fa-sharp-duotone,
+.fa-sharp-duotone-solid,
+.fa-chisel,
+.fa-etch,
+.fa-graphite,
+.fa-jelly,
+.fa-jelly-fill,
+.fa-jelly-duo,
+.fa-notdog,
+.fa-notdog-duo,
+.fa-slab,
+.fa-slab-press,
+.fa-thumbprint,
+.fa-whiteboard,
+.fa-whiteboard-semibold,
+.fa-utility {
+    --_fa-family: "Font Awesome 7 Free";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: var(--fa-display, inline-block);
+    font-family: "Font Awesome 7 Free";
+    font-feature-settings: normal;
+    font-style: normal;
+    font-synthesis: none;
+    font-variant: normal;
+    font-weight: 900;
+    line-height: 1;
+    text-align: center;
+    text-rendering: auto;
+    width: var(--fa-width, 1.25em);
+}
+
+.fal::before,
+.fat::before,
+.fad::before,
+.fass::before,
+.fasr::before,
+.fasl::before,
+.fast::before,
+.fasds::before,
+.fadr::before,
+.fadl::before,
+.fadt::before,
+.fak::before,
+.fa-kit::before,
+.fa-light::before,
+.fa-thin::before,
+.fa-duotone::before,
+.fa-sharp::before,
+.fa-sharp-solid::before,
+.fa-sharp-regular::before,
+.fa-sharp-light::before,
+.fa-sharp-thin::before,
+.fa-sharp-duotone::before,
+.fa-sharp-duotone-solid::before,
+.fa-chisel::before,
+.fa-etch::before,
+.fa-graphite::before,
+.fa-jelly::before,
+.fa-jelly-fill::before,
+.fa-jelly-duo::before,
+.fa-notdog::before,
+.fa-notdog-duo::before,
+.fa-slab::before,
+.fa-slab-press::before,
+.fa-thumbprint::before,
+.fa-whiteboard::before,
+.fa-whiteboard-semibold::before,
+.fa-utility::before {
+    content: var(--fa);
+}
+
+/* Duotone in Free is a single-tone glyph: kill the second layer and the
+   Pro-only opacity tokens so nothing paints a ghost on top. */
+.fad::after,
+.fa-duotone::after,
+.fasds::after,
+.fa-sharp-duotone::after,
+.fa-sharp-duotone-solid::after {
+    content: none;
+}
+.fad, .fa-duotone, .fasds, .fa-sharp-duotone, .fa-sharp-duotone-solid {
+    --fa-primary-opacity: 1;
+    --fa-secondary-opacity: 1;
+}
+
+/* Free Regular only covers ~160 icons. Keep the outline look where it exists
+   and fall through to the Solid face (glyph-level font fallback) where it
+   does not, instead of rendering an empty box. */
+@font-face {
+    font-family: "FA7 Free Solid Fallback";
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    src: url("../webfonts/fa-solid-900.woff2") format("woff2");
+}
+.far, .fa-regular {
+    font-family: "Font Awesome 7 Free", "FA7 Free Solid Fallback";
+}
+
+/* ── 2. Pro-only icon names → closest Free icon ─────────────────────────── */
+.fa-arrow-down-left{--fa:"\f063";transform:rotate(45deg)}  /* Pro fa-arrow-down-left -> Free fa-arrow-down */
+.fa-arrow-down-right{--fa:"\f063";transform:rotate(-45deg)}  /* Pro fa-arrow-down-right -> Free fa-arrow-down */
+.fa-arrow-up-left{--fa:"\f062";transform:rotate(-45deg)}  /* Pro fa-arrow-up-left -> Free fa-arrow-up */
+.fa-arrow-up-right{--fa:"\f062";transform:rotate(45deg)}  /* Pro fa-arrow-up-right -> Free fa-arrow-up */
+.fa-arrow-turn-right{--fa:"\f5eb"}  /* Pro fa-arrow-turn-right -> Free fa-diamond-turn-right */
+.fa-arrow-turn-left{--fa:"\f5eb";transform:scaleX(-1)}  /* Pro fa-arrow-turn-left -> Free fa-diamond-turn-right */
+.fa-arrow-down-to-bracket{--fa:"\f019"}  /* Pro fa-arrow-down-to-bracket -> Free fa-download */
+.fa-square-chevron-right{--fa:"\f152"}  /* Pro fa-square-chevron-right -> Free fa-square-caret-right */
+.fa-backpack{--fa:"\f290"}  /* Pro fa-backpack -> Free fa-bag-shopping */
+.fa-boot{--fa:"\f54b"}  /* Pro fa-boot -> Free fa-shoe-prints */
+.fa-clothes-hanger{--fa:"\f553"}  /* Pro fa-clothes-hanger -> Free fa-shirt */
+.fa-ear{--fa:"\f2a2"}  /* Pro fa-ear -> Free fa-ear-listen */
+.fa-watch{--fa:"\f017"}  /* Pro fa-watch -> Free fa-clock */
+.fa-grid{--fa:"\f00a"}  /* Pro fa-grid -> Free fa-table-cells */
+.fa-grid-2{--fa:"\f009"}  /* Pro fa-grid-2 -> Free fa-table-cells-large */
+.fa-table-layout{--fa:"\f00b"}  /* Pro fa-table-layout -> Free fa-table-list */
+.fa-input-text{--fa:"\f246"}  /* Pro fa-input-text -> Free fa-i-cursor */
+.fa-crutches{--fa:"\f7f7"}  /* Pro fa-crutches -> Free fa-crutch */
+.fa-user-doctor-hair-long{--fa:"\f0f0"}  /* Pro fa-user-doctor-hair-long -> Free fa-user-doctor */
+.fa-person-kneeling{--fa:"\f683"}  /* Pro fa-person-kneeling -> Free fa-person-praying */
+.fa-hand-wave{--fa:"\f256"}  /* Pro fa-hand-wave -> Free fa-hand */
+.fa-broom-wide{--fa:"\f51a"}  /* Pro fa-broom-wide -> Free fa-broom */
+.fa-paintbrush-fine{--fa:"\f1fc"}  /* Pro fa-paintbrush-fine -> Free fa-paintbrush */
+.fa-vector-square{--fa:"\f5ee"}  /* Pro fa-vector-square -> Free fa-draw-polygon */
+.fa-text-size{--fa:"\f034"}  /* Pro fa-text-size -> Free fa-text-height */
+.fa-image-slash{--fa:"\f03e"}  /* Pro fa-image-slash -> Free fa-image */
+.fa-grip-dots-vertical{--fa:"\f58e"}  /* Pro fa-grip-dots-vertical -> Free fa-grip-vertical */
+.fa-list-timeline{--fa:"\e29c"}  /* Pro fa-list-timeline -> Free fa-timeline */
+.fa-engine{--fa:"\f085"}  /* Pro fa-engine -> Free fa-gears */
+.fa-pallet-boxes{--fa:"\f482"}  /* Pro fa-pallet-boxes -> Free fa-pallet */
+.fa-route-interstate{--fa:"\f018"}  /* Pro fa-route-interstate -> Free fa-road */
+.fa-hexagon-vertical-nft{--fa:"\f1b2"}  /* Pro fa-hexagon-vertical-nft -> Free fa-cube */
+.fa-shield-check{--fa:"\f3ed"}  /* Pro fa-shield-check -> Free fa-shield-halved */
+.fa-shield-exclamation{--fa:"\f3ed"}  /* Pro fa-shield-exclamation -> Free fa-shield-halved */
+.fa-shield-keyhole{--fa:"\f3ed"}  /* Pro fa-shield-keyhole -> Free fa-shield-halved */
+.fa-signal-bars{--fa:"\f012"}  /* Pro fa-signal-bars -> Free fa-signal */
+.fa-siren-on{--fa:"\f519"}  /* Pro fa-siren-on -> Free fa-tower-broadcast */
+.fa-radar{--fa:"\f7c0"}  /* Pro fa-radar -> Free fa-satellite-dish */
+.fa-user-magnifying-glass{--fa:"\e595"}  /* Pro fa-user-magnifying-glass -> Free fa-users-viewfinder */
