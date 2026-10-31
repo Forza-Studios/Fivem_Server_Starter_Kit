@@ -125,7 +125,7 @@ Config.Car = {}
 
 
 Config.Car.models = {
-    'tiptruck2',
+    'ev_scooty',
     -- add more models here
 }
 
@@ -143,7 +143,14 @@ Config.Car.locations = {
 
 
 
-config.carwash.locations = {
-    '-28.1574, -1082.2430, 26.6245, 61.9880',
+-- ============================================================
+--  Car Wash Job - Carwash
+-- ============================================================
+
+-- Blips switch to these spots while you sit inside the job car
+Config.Carwash = {}
+
+Config.Carwash.locations = {
+    '21.9085, -1391.9541, 29.3285, 267.8849',
     -- add more locations here
 }

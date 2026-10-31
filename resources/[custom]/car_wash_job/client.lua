@@ -167,6 +167,7 @@ end
 -- ------------------------------------------------------------
 local jobBlips = {}
 local jobCars = {}
+local jobCarSet = {}
 
 -- Config.Car drives everything (locations, models, blips)
 local function carCfg()
@@ -176,6 +177,11 @@ end
 -- Where the job car spawns
 local function carLocations()
     return carCfg().locations or {}
+end
+
+-- Where the car has to be taken (shown while driving the job car)
+local function carwashLocations()
+    return (Config.Carwash and Config.Carwash.locations) or {}
 end
 
 -- Accepts "x, y, z, heading" strings or vec4 values
@@ -199,10 +205,11 @@ local function parseLocation(loc)
     return loc.x, loc.y, loc.z, loc.w or 0.0
 end
 
-local function createJobBlips()
-    local blipCfg = carCfg().blip or {}
+local function createJobBlips(locations, blipCfg)
+    locations = locations or carLocations()
+    blipCfg = blipCfg or carCfg().blip or {}
 
-    for _, loc in ipairs(carLocations()) do
+    for _, loc in ipairs(locations) do
         local x, y, z = parseLocation(loc)
 
         if x then
@@ -224,6 +231,14 @@ local function createJobBlips()
 
             jobBlips[#jobBlips + 1] = blip
         end
+    end
+end
+
+local function removeJobBlips()
+    for i = #jobBlips, 1, -1 do
+        local blip = jobBlips[i]
+        if DoesBlipExist(blip) then RemoveBlip(blip) end
+        jobBlips[i] = nil
     end
 end
 
@@ -296,18 +311,16 @@ local function spawnJobCar(loc)
         end)
 
         jobCars[#jobCars + 1] = vehicle
+        jobCarSet[vehicle] = true
     end
 end
 
 local function removeJobEntities()
-    for i = #jobBlips, 1, -1 do
-        local blip = jobBlips[i]
-        if DoesBlipExist(blip) then RemoveBlip(blip) end
-        jobBlips[i] = nil
-    end
+    removeJobBlips()
 
     for i = #jobCars, 1, -1 do
         local vehicle = jobCars[i]
+        jobCarSet[vehicle] = nil
         if DoesEntityExist(vehicle) then
             SetEntityAsMissionEntity(vehicle, true, true)
             DeleteVehicle(vehicle)
@@ -316,9 +329,39 @@ local function removeJobEntities()
     end
 end
 
+local function isInJobCar()
+    local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
+    return vehicle ~= 0 and jobCarSet[vehicle] == true
+end
+
+-- While sitting in the job car the blips point at the wash spots,
+-- outside the car they point back at the car spawn spots.
+local function startBlipSwitch()
+    CreateThread(function()
+        local showingWash = false
+        createJobBlips(carLocations())
+
+        while jobActive do
+            local inJobCar = isInJobCar()
+
+            if inJobCar ~= showingWash then
+                showingWash = inJobCar
+                removeJobBlips()
+
+                if inJobCar and #carwashLocations() > 0 then
+                    createJobBlips(carwashLocations(), (Config.Carwash and Config.Carwash.blip) or nil)
+                else
+                    createJobBlips(carLocations())
+                end
+            end
+
+            Wait(500)
+        end
+    end)
+end
+
 local function startJobLocations()
     removeJobEntities()
-    createJobBlips()
 
     local locations = carLocations()
 
@@ -329,6 +372,9 @@ local function startJobLocations()
             spawnJobCar(loc)
         end
     end)
+
+    -- Blips switch between car spots and wash spots automatically
+    startBlipSwitch()
 end
 
 -- ------------------------------------------------------------
