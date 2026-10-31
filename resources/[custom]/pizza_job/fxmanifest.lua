@@ -2,7 +2,7 @@ fx_version 'cerulean'
 game 'gta5'
 
 author '_forza'
-description 'Reworked Pizza Job for ESX/QB.'
+description 'Customised pizza delivery job.'
 
 shared_scripts {
     'config.lua',

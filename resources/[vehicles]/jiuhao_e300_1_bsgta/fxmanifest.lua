@@ -1,5 +1,11 @@
 fx_version 'cerulean'
 games { 'gta5' }
+
+author '_forza' 
+description 'Genz Electric Scooty dependent for pizza job'
+
+
+
 files {
 	'common/vehicles.meta',
 	'common/carvariations.meta',
