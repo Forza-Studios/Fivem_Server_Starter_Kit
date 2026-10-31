@@ -276,6 +276,10 @@ local function spawnJobCar(loc)
             SetVehicleIndividualDoorsLocked(vehicle, door, 1)  -- 1 = unlocked
         end
 
+        -- IMPORTANT: tell qbx_vehiclekeys it's unlocked. Without this state bag
+        -- it randomly locks vehicles (spawnLockedIfParked) when you try to enter.
+        Entity(vehicle).state:set('doorslockstate', 1, true)
+
         SetVehicleUndriveable(vehicle, false)
         SetVehicleKeepEngineOnWhenAbandoned(vehicle, true)
         SetVehicleEngineOn(vehicle, true, true, false)
@@ -286,6 +290,7 @@ local function spawnJobCar(loc)
                 if not DoesEntityExist(vehicle) then return end
                 SetVehicleDoorsLocked(vehicle, 1)
                 SetVehicleDoorsLockedForAllPlayers(vehicle, false)
+                Entity(vehicle).state:set('doorslockstate', 1, true)
                 Wait(200)
             end
         end)
