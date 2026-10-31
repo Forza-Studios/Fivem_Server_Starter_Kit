@@ -125,7 +125,7 @@ Config.Car = {}
 
 
 Config.Car.models = {
-    'acty',
+    'cis_e63w214',
     -- add more models here
 }
 
@@ -143,12 +143,55 @@ Config.Car.locations = {
 
 
 
+
+
+
+
+
+
+-- After a washed car is brought back to the spot it was taken from, that
+-- spot disappears for this many seconds (24 hours). Saved on the server.
+Config.Cooldown = 24 * 60 * 60
+
+-- Route back to the pickup spot after the wash
+Config.Return = {
+    radius = 5.0,   -- distance (metres) from the spot that counts as returned
+    blip = {
+        sprite = 225,
+        color = 2,
+        scale = 1.0,
+        name = 'Return Car Here',
+    },
+}
+
+-- Server-side list of valid spot keys ("x,y"), built from Config.Car.locations
+Config.SpotKeys = {}
+for _, loc in ipairs(Config.Car.locations) do
+    local x, y
+    if type(loc) == 'string' then
+        x, y = loc:match('^%s*([^,]+),%s*([^,]+)')
+    else
+        x, y = loc.x, loc.y
+    end
+    if tonumber(x) and tonumber(y) then
+        Config.SpotKeys[string.format('%.2f,%.2f', tonumber(x), tonumber(y))] = true
+    end
+end
+
+
+
+
 -- ============================================================
 --  Car Wash Job - Carwash
 -- ============================================================
 
 -- Blips switch to these spots while you sit inside the job car
 Config.Carwash = {}
+
+
+
+
+
 
 Config.Carwash.locations = {
     '21.9085, -1391.9541, 29.3285, 267.8849', -- Strawberry (yours)

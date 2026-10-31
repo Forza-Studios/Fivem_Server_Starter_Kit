@@ -168,10 +168,33 @@ end
 local jobBlips = {}
 local jobCars = {}
 local jobCarSet = {}
+local jobCarSpot = {}      -- vehicle -> the spot it was taken from
+local cleanCars = {}       -- vehicles that finished washing (head back to their spot)
+local completedSpots = {}  -- spot key -> true while the spot is on cooldown
+local cooldownsLoaded = false
 
 -- Car wash animation state
 local washingVehicle = false
 local washedCars = {}
+
+RegisterNetEvent('car_wash_job:client:cooldowns', function(keys)
+    completedSpots = {}
+    for _, key in ipairs(keys or {}) do
+        completedSpots[key] = true
+    end
+    cooldownsLoaded = true
+end)
+
+-- Asks the server which spots are still on cooldown (waits up to 3s)
+local function fetchCooldowns()
+    cooldownsLoaded = false
+    TriggerServerEvent('car_wash_job:server:requestCooldowns')
+
+    local timeout = GetGameTimer() + 3000
+    while not cooldownsLoaded and GetGameTimer() < timeout do
+        Wait(50)
+    end
+end
 
 -- Config.Car drives everything (locations, models, blips)
 local function carCfg()
@@ -207,6 +230,24 @@ local function parseLocation(loc)
 
     -- vector4
     return loc.x, loc.y, loc.z, loc.w or 0.0
+end
+
+-- Stable id for a spot, used for the 24h cooldown
+local function spotKey(loc)
+    local x, y = parseLocation(loc)
+    return x and string.format('%.2f,%.2f', x, y) or nil
+end
+
+-- Spawn spots that are not on cooldown
+local function availableCarLocations()
+    local available = {}
+    for _, loc in ipairs(carLocations()) do
+        local key = spotKey(loc)
+        if key and not completedSpots[key] then
+            available[#available + 1] = loc
+        end
+    end
+    return available
 end
 
 local function createJobBlips(locations, blipCfg)
@@ -316,12 +357,15 @@ local function spawnJobCar(loc)
 
         jobCars[#jobCars + 1] = vehicle
         jobCarSet[vehicle] = true
+        jobCarSpot[vehicle] = { x = x, y = y, z = z, key = spotKey(loc) }
     end
 end
 
 local function removeJobEntities()
     removeJobBlips()
     washedCars = {}
+    cleanCars = {}
+    jobCarSpot = {}
 
     for i = #jobCars, 1, -1 do
         local vehicle = jobCars[i]
@@ -339,25 +383,97 @@ local function isInJobCar()
     return vehicle ~= 0 and jobCarSet[vehicle] == true
 end
 
--- While sitting in the job car the blips point at the wash spots,
--- outside the car they point back at the car spawn spots.
+-- Blips depend on what the player is doing:
+--   in an unwashed job car -> wash spots
+--   in a washed job car    -> GPS route back to the spot the car was taken from
+--   otherwise              -> the car spots that are not on cooldown
 local function startBlipSwitch()
     CreateThread(function()
-        local showingWash = false
-        createJobBlips(carLocations())
+        local shownState
+        local returnBlip
+
+        local function clearReturnBlip()
+            if returnBlip and DoesBlipExist(returnBlip) then RemoveBlip(returnBlip) end
+            returnBlip = nil
+        end
 
         while jobActive do
-            local inJobCar = isInJobCar()
+            local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
+            local state = 'spots'
+            local origin
 
-            if inJobCar ~= showingWash then
-                showingWash = inJobCar
-                removeJobBlips()
-
-                if inJobCar and #carwashLocations() > 0 then
-                    createJobBlips(carwashLocations(), (Config.Carwash and Config.Carwash.blip) or nil)
-                else
-                    createJobBlips(carLocations())
+            if vehicle ~= 0 and jobCarSet[vehicle] then
+                origin = jobCarSpot[vehicle]
+                if cleanCars[vehicle] and origin then
+                    state = 'return:' .. origin.key
+                elseif #carwashLocations() > 0 then
+                    state = 'wash'
                 end
+            end
+
+            if state ~= shownState then
+                shownState = state
+                removeJobBlips()
+                clearReturnBlip()
+
+                if state == 'wash' then
+                    createJobBlips(carwashLocations(), (Config.Carwash and Config.Carwash.blip) or nil)
+                elseif origin and state:sub(1, 7) == 'return:' then
+                    local cfg = (Config.Return and Config.Return.blip) or {}
+                    returnBlip = AddBlipForCoord(origin.x, origin.y, origin.z)
+                    SetBlipSprite(returnBlip, cfg.sprite or 225)
+                    SetBlipColour(returnBlip, cfg.color or 2)
+                    SetBlipScale(returnBlip, cfg.scale or 1.0)
+                    SetBlipAsShortRange(returnBlip, false)
+                    SetBlipRoute(returnBlip, true)
+                    SetBlipRouteColour(returnBlip, cfg.color or 2)
+
+                    BeginTextCommandSetBlipName('STRING')
+                    AddTextComponentString(cfg.name or 'Return Car Here')
+                    EndTextCommandSetBlipName(returnBlip)
+                else
+                    createJobBlips(availableCarLocations())
+                end
+            end
+
+            Wait(500)
+        end
+
+        clearReturnBlip()
+    end)
+end
+
+-- Bring a washed car back to its spot: the car is handed in and the spot
+-- goes on cooldown (stored on the server).
+local function startAutoReturn()
+    CreateThread(function()
+        local radius = (Config.Return and Config.Return.radius) or 5.0
+
+        while jobActive do
+            local ped = PlayerPedId()
+            local vehicle = GetVehiclePedIsIn(ped, false)
+            local origin = vehicle ~= 0 and jobCarSpot[vehicle]
+
+            if origin and cleanCars[vehicle] and not completedSpots[origin.key]
+                and #(GetEntityCoords(vehicle) - vector3(origin.x, origin.y, origin.z)) <= radius then
+                completedSpots[origin.key] = true
+                TriggerServerEvent('car_wash_job:server:completeSpot', origin.key)
+
+                TaskLeaveVehicle(ped, vehicle, 0)
+                local timeout = GetGameTimer() + 4000
+                while IsPedInVehicle(ped, vehicle, false) and GetGameTimer() < timeout do
+                    Wait(100)
+                end
+
+                jobCarSet[vehicle] = nil
+                jobCarSpot[vehicle] = nil
+                cleanCars[vehicle] = nil
+                if DoesEntityExist(vehicle) then
+                    SetEntityAsMissionEntity(vehicle, true, true)
+                    DeleteVehicle(vehicle)
+                end
+
+                notify('Car returned! This spot is available again in 24 hours.', 'success')
             end
 
             Wait(500)
@@ -534,7 +650,8 @@ local function washVehicle(vehicle)
     FreezeEntityPosition(vehicle, false)
 
     washingVehicle = false
-    notify('Vehicle washed!', 'success')
+    cleanCars[vehicle] = true
+    notify('Vehicle washed! Take it back to where you picked it up.', 'success')
 end
 
 -- Watch the job car and wash it automatically when it reaches a wash spot
@@ -567,21 +684,34 @@ end
 local function startJobLocations()
     removeJobEntities()
 
-    local locations = carLocations()
-
     -- Spawn in a thread so the target callback never blocks
     CreateThread(function()
+        fetchCooldowns()
+        if not jobActive then return end
+
+        local locations = availableCarLocations()
+
+        if #locations == 0 then
+            jobActive = false
+            TriggerEvent('car_wash_job:client:stopJob')
+            notify('No cars need washing right now. Come back later.', 'error')
+            return
+        end
+
         for _, loc in ipairs(locations) do
             if not jobActive then break end
             spawnJobCar(loc)
         end
+
+        -- Blips switch between car spots, wash spots and the way back
+        startBlipSwitch()
+
+        -- Wash the car as soon as it reaches a wash spot
+        startAutoWash()
+
+        -- Hand the car in when it is back at its spot
+        startAutoReturn()
     end)
-
-    -- Blips switch between car spots and wash spots automatically
-    startBlipSwitch()
-
-    -- Wash the car as soon as it reaches a wash spot
-    startAutoWash()
 end
 
 -- ------------------------------------------------------------
