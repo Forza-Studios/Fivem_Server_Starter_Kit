@@ -23,9 +23,9 @@ Config.Boss = {
     -- Scenario animations the boss cycles through.
     -- The first one is played on spawn.
     animations = {
-        'WORLD_HUMAN_CLIPBOARD',   -- holding a clipboard
+       -- 'WORLD_HUMAN_CLIPBOARD',   -- holding a clipboard
         'WORLD_HUMAN_STAND_MOBILE', -- checking his phone
-        'WORLD_HUMAN_SMOKING',      -- taking a smoke break
+       -- 'WORLD_HUMAN_SMOKING',      -- taking a smoke break
     },
 
     -- How often (in milliseconds) the boss switches animation

@@ -81,7 +81,7 @@ local function createBossBlip()
 end
 
 -- ------------------------------------------------------------
---  Random dialogue (voice + mouth movement)
+--  Continuous dialogue (voice + mouth movement)
 -- ------------------------------------------------------------
 local function playDialogue(speechName)
     local cfg = Config.Boss.dialogue
@@ -110,15 +110,46 @@ local function playDialogue(speechName)
     end
 end
 
+local lastLine
+
+-- Pick a random line and never repeat the same one twice in a row
+local function pickLine()
+    local lines = Config.Boss.dialogue.lines
+    if not lines or #lines == 0 then return end
+
+    if #lines == 1 then return lines[1] end
+
+    local line
+    repeat
+        line = lines[math.random(#lines)]
+    until line ~= lastLine
+
+    lastLine = line
+    return line
+end
+
+local function isSpeaking(ped)
+    return IsAmbientSpeechPlaying(ped) or IsScriptedSpeechPlaying(ped)
+end
+
 local function dialogueLoop()
     local cfg = Config.Boss.dialogue
     if not cfg or cfg.enabled == false then return end
 
-    local interval = cfg.interval or { min = 20000, max = 45000 }
+    local delay = cfg.delay or 1000
 
     while true do
-        Wait(math.random(interval.min or 20000, interval.max or 45000))
-        playDialogue()
+        playDialogue(pickLine())
+
+        -- Keep talking with a short pause between lines
+        Wait(delay)
+
+        -- Wait for the current line to finish so it never gets cut off
+        local waited = 0
+        while DoesEntityExist(bossPed) and isSpeaking(bossPed) and waited < 12000 do
+            Wait(100)
+            waited = waited + 100
+        end
     end
 end
 
@@ -134,7 +165,7 @@ local function startCarWashJob()
 
     local cfg = Config.Boss.dialogue
     if cfg and cfg.greetOnInteract ~= false then
-        playDialogue()
+        playDialogue(pickLine())
     end
 
     notify(Config.Boss.target.startedMessage or 'You started the car wash job!', 'success')
@@ -149,7 +180,7 @@ local function stopCarWashJob()
 
     local cfg = Config.Boss.dialogue
     if cfg and cfg.greetOnInteract ~= false then
-        playDialogue()
+        playDialogue(pickLine())
     end
 
     notify(Config.Boss.target.stoppedMessage or 'You stopped the car wash job.', 'error')
@@ -238,7 +269,7 @@ CreateThread(function()
 
     -- Greet once shortly after spawning (only if a player is nearby)
     Wait(2500)
-    playDialogue()
+    playDialogue(pickLine())
 
     -- Chatter runs in its own thread so it keeps going alongside the animations
     CreateThread(dialogueLoop)
