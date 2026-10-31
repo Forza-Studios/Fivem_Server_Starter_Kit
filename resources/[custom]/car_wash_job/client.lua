@@ -1,4 +1,5 @@
 local bossPed
+local jobActive = false
 
 -- ------------------------------------------------------------
 --  Notification helper (uses ox_lib, with a native fallback)
@@ -60,45 +61,73 @@ local function spawnBoss()
 end
 
 -- ------------------------------------------------------------
---  Target interaction
+--  Job actions
 -- ------------------------------------------------------------
 local function startCarWashJob()
-    local target = Config.Boss.target or {}
+    if jobActive then return end
+    jobActive = true
 
     -- Hook for other scripts: listen to 'car_wash_job:client:startJob'
     TriggerEvent('car_wash_job:client:startJob')
 
-    notify(target.startedMessage or 'You started the car wash job!', 'success')
+    notify(Config.Boss.target.startedMessage or 'You started the car wash job!', 'success')
 end
 
+local function stopCarWashJob()
+    if not jobActive then return end
+    jobActive = false
+
+    -- Hook for other scripts: listen to 'car_wash_job:client:stopJob'
+    TriggerEvent('car_wash_job:client:stopJob')
+
+    notify(Config.Boss.target.stoppedMessage or 'You stopped the car wash job.', 'error')
+end
+
+-- ------------------------------------------------------------
+--  Target interaction
+-- ------------------------------------------------------------
 local function addBossTarget()
     if not DoesEntityExist(bossPed) then return end
 
     local target = Config.Boss.target or {}
-    local label = target.label or 'Start Car Wash Job'
-    local icon = target.icon or 'fa-solid fa-soap'
     local distance = target.distance or 2.5
 
     if GetResourceState('ox_target') == 'started' then
         exports.ox_target:addLocalEntity(bossPed, {
             {
                 name = 'car_wash_job:start',
-                label = label,
-                icon = icon,
+                label = target.startLabel or 'Start Car Wash Job',
+                icon = target.icon or 'fa-solid fa-soap',
                 distance = distance,
+                canInteract = function() return not jobActive end,
                 onSelect = startCarWashJob,
-            }
+            },
+            {
+                name = 'car_wash_job:stop',
+                label = target.stopLabel or 'Stop Car Wash Job',
+                icon = target.stopIcon or 'fa-solid fa-stop',
+                distance = distance,
+                canInteract = function() return jobActive end,
+                onSelect = stopCarWashJob,
+            },
         })
     elseif GetResourceState('qb-target') == 'started' then
         exports['qb-target']:AddTargetEntity(bossPed, {
             options = {
                 {
-                    label = label,
-                    icon = icon,
+                    label = target.startLabel or 'Start Car Wash Job',
+                    icon = target.icon or 'fa-solid fa-soap',
+                    canInteract = function() return not jobActive end,
                     action = startCarWashJob,
-                }
+                },
+                {
+                    label = target.stopLabel or 'Stop Car Wash Job',
+                    icon = target.stopIcon or 'fa-solid fa-stop',
+                    canInteract = function() return jobActive end,
+                    action = stopCarWashJob,
+                },
             },
-            distance = distance
+            distance = distance,
         })
     end
 end
