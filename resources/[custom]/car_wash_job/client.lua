@@ -1,4 +1,5 @@
 local bossPed
+local bossBlip
 local jobActive = false
 
 -- ------------------------------------------------------------
@@ -58,6 +59,25 @@ local function spawnBoss()
             TaskStartScenarioInPlace(bossPed, anims[1], 0, true)
         end
     end
+end
+
+-- ------------------------------------------------------------
+--  Map blip
+-- ------------------------------------------------------------
+local function createBossBlip()
+    local blipCfg = Config.Boss.blip
+    if not blipCfg or bossBlip then return end
+
+    local coords = Config.Boss.coords
+    bossBlip = AddBlipForCoord(coords.x, coords.y, coords.z)
+    SetBlipSprite(bossBlip, blipCfg.sprite or 100)
+    SetBlipColour(bossBlip, blipCfg.color or 37)
+    SetBlipScale(bossBlip, blipCfg.scale or 0.75)
+    SetBlipAsShortRange(bossBlip, blipCfg.shortRange ~= false)
+
+    BeginTextCommandSetBlipName('STRING')
+    AddTextComponentString(blipCfg.name or 'Car Wash Job')
+    EndTextCommandSetBlipName(bossBlip)
 end
 
 -- ------------------------------------------------------------
@@ -161,12 +181,17 @@ CreateThread(function()
 
     Wait(1000)
     spawnBoss()
+    createBossBlip()
     addBossTarget()
     animateBoss()
 end)
 
 AddEventHandler('onResourceStop', function(res)
     if res ~= GetCurrentResourceName() then return end
+    if bossBlip and DoesBlipExist(bossBlip) then
+        RemoveBlip(bossBlip)
+        bossBlip = nil
+    end
     if bossPed and DoesEntityExist(bossPed) then
         DeleteEntity(bossPed)
     end

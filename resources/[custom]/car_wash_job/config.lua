@@ -7,7 +7,15 @@ Config = {}
 -- Ped model (businessman in a suit looks like a boss/owner)
 Config.Boss = {
     model = `a_m_m_business_01`,
-    blip
+
+    -- Map blip shown at the boss / car wash location
+    blip = {
+        sprite = 100,      -- car wash icon (radar_car_wash)
+        color = 37,        -- light blue
+        scale = 0.75,
+        shortRange = true,
+        name = 'Car Wash Job',
+    },
 
     -- Position: x, y, z, heading
     coords = vec4(-26.8828, -1089.4662, 25.4220, 99.8171),
