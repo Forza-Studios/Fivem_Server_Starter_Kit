@@ -81,6 +81,48 @@ local function createBossBlip()
 end
 
 -- ------------------------------------------------------------
+--  Random dialogue (voice + mouth movement)
+-- ------------------------------------------------------------
+local function playDialogue(speechName)
+    local cfg = Config.Boss.dialogue
+    if not cfg or cfg.enabled == false then return end
+    if not DoesEntityExist(bossPed) then return end
+
+    if not speechName then
+        local lines = cfg.lines
+        if not lines or #lines == 0 then return end
+        speechName = lines[math.random(#lines)]
+    end
+
+    -- Only talk when a player is close enough to hear him
+    local maxDistance = cfg.maxDistance or 20.0
+    if #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(bossPed)) > maxDistance then
+        return
+    end
+
+    -- Random voice for every line so he never sounds the same
+    local voices = cfg.voices
+    if voices and #voices > 0 then
+        local voice = voices[math.random(#voices)]
+        PlayAmbientSpeechWithVoice(bossPed, speechName, voice, 'SPEECH_PARAMS_FORCE_NORMAL', false)
+    else
+        PlayAmbientSpeech1(bossPed, speechName, 'SPEECH_PARAMS_FORCE_NORMAL')
+    end
+end
+
+local function dialogueLoop()
+    local cfg = Config.Boss.dialogue
+    if not cfg or cfg.enabled == false then return end
+
+    local interval = cfg.interval or { min = 20000, max = 45000 }
+
+    while true do
+        Wait(math.random(interval.min or 20000, interval.max or 45000))
+        playDialogue()
+    end
+end
+
+-- ------------------------------------------------------------
 --  Job actions
 -- ------------------------------------------------------------
 local function startCarWashJob()
@@ -89,6 +131,11 @@ local function startCarWashJob()
 
     -- Hook for other scripts: listen to 'car_wash_job:client:startJob'
     TriggerEvent('car_wash_job:client:startJob')
+
+    local cfg = Config.Boss.dialogue
+    if cfg and cfg.greetOnInteract ~= false then
+        playDialogue()
+    end
 
     notify(Config.Boss.target.startedMessage or 'You started the car wash job!', 'success')
 end
@@ -99,6 +146,11 @@ local function stopCarWashJob()
 
     -- Hook for other scripts: listen to 'car_wash_job:client:stopJob'
     TriggerEvent('car_wash_job:client:stopJob')
+
+    local cfg = Config.Boss.dialogue
+    if cfg and cfg.greetOnInteract ~= false then
+        playDialogue()
+    end
 
     notify(Config.Boss.target.stoppedMessage or 'You stopped the car wash job.', 'error')
 end
@@ -183,6 +235,14 @@ CreateThread(function()
     spawnBoss()
     createBossBlip()
     addBossTarget()
+
+    -- Greet once shortly after spawning (only if a player is nearby)
+    Wait(2500)
+    playDialogue()
+
+    -- Chatter runs in its own thread so it keeps going alongside the animations
+    CreateThread(dialogueLoop)
+
     animateBoss()
 end)
 
@@ -193,6 +253,7 @@ AddEventHandler('onResourceStop', function(res)
         bossBlip = nil
     end
     if bossPed and DoesEntityExist(bossPed) then
+        StopPedSpeaking(bossPed, true)
         DeleteEntity(bossPed)
     end
 end)
