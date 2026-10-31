@@ -21,4 +21,15 @@ Config.Boss = {
 
     -- How often (in milliseconds) the boss switches animation
     animationInterval = { min = 25000, max = 40000 },
+
+    -- Interaction shown when pointing at the boss
+    target = {
+        label = 'Start Car Wash Job',
+        icon = 'fa-solid fa-soap',
+        distance = 2.5,
+
+        -- Notification shown after starting
+        notifyTitle = 'Car Wash',
+        startedMessage = 'You started the car wash job!',
+    },
 }

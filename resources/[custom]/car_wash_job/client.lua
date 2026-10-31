@@ -1,5 +1,26 @@
 local bossPed
 
+-- ------------------------------------------------------------
+--  Notification helper (uses ox_lib, with a native fallback)
+-- ------------------------------------------------------------
+local function notify(message, nType)
+    if GetResourceState('ox_lib') == 'started' then
+        local target = Config.Boss.target or {}
+        exports.ox_lib:notify({
+            title = target.notifyTitle or 'Car Wash',
+            description = message,
+            type = nType or 'success',
+        })
+    else
+        SetNotificationTextEntry('STRING')
+        AddTextComponentString(message)
+        DrawNotification(false, true)
+    end
+end
+
+-- ------------------------------------------------------------
+--  Boss ped
+-- ------------------------------------------------------------
 local function spawnBoss()
     if DoesEntityExist(bossPed) then return end
 
@@ -38,7 +59,53 @@ local function spawnBoss()
     end
 end
 
--- Cycle through animations at the configured interval
+-- ------------------------------------------------------------
+--  Target interaction
+-- ------------------------------------------------------------
+local function startCarWashJob()
+    local target = Config.Boss.target or {}
+
+    -- Hook for other scripts: listen to 'car_wash_job:client:startJob'
+    TriggerEvent('car_wash_job:client:startJob')
+
+    notify(target.startedMessage or 'You started the car wash job!', 'success')
+end
+
+local function addBossTarget()
+    if not DoesEntityExist(bossPed) then return end
+
+    local target = Config.Boss.target or {}
+    local label = target.label or 'Start Car Wash Job'
+    local icon = target.icon or 'fa-solid fa-soap'
+    local distance = target.distance or 2.5
+
+    if GetResourceState('ox_target') == 'started' then
+        exports.ox_target:addLocalEntity(bossPed, {
+            {
+                name = 'car_wash_job:start',
+                label = label,
+                icon = icon,
+                distance = distance,
+                onSelect = startCarWashJob,
+            }
+        })
+    elseif GetResourceState('qb-target') == 'started' then
+        exports['qb-target']:AddTargetEntity(bossPed, {
+            options = {
+                {
+                    label = label,
+                    icon = icon,
+                    action = startCarWashJob,
+                }
+            },
+            distance = distance
+        })
+    end
+end
+
+-- ------------------------------------------------------------
+--  Animation cycling
+-- ------------------------------------------------------------
 local function animateBoss()
     while true do
         local interval = Config.Boss.animationInterval or { min = 25000, max = 40000 }
@@ -54,6 +121,9 @@ local function animateBoss()
     end
 end
 
+-- ------------------------------------------------------------
+--  Startup / cleanup
+-- ------------------------------------------------------------
 CreateThread(function()
     -- Wait until the player is fully loaded and in game
     while not NetworkIsPlayerActive(PlayerId()) do
@@ -62,6 +132,7 @@ CreateThread(function()
 
     Wait(1000)
     spawnBoss()
+    addBossTarget()
     animateBoss()
 end)
 
