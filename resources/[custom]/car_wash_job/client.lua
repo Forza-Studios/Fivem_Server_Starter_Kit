@@ -255,8 +255,27 @@ local function spawnJobCar(loc)
         SetVehicleOnGroundProperly(vehicle)
         SetEntityAsMissionEntity(vehicle, true, true)
         SetVehicleHasBeenOwnedByPlayer(vehicle, true)
-        SetVehicleDoorsLocked(vehicle, 1)
+
+        -- Force the car to be unlocked (doors + no hotwiring needed)
+        SetVehicleDoorsLocked(vehicle, 1)                      -- 1 = unlocked
+        SetVehicleDoorsLockedForAllPlayers(vehicle, false)
+        SetVehicleDoorsLockedForPlayer(vehicle, PlayerId(), false)
+        SetVehicleNeedsToBeHotwired(vehicle, false)
+        for door = 0, 5 do
+            SetVehicleIndividualDoorsLocked(vehicle, door, 0)  -- 0 = unlocked
+        end
+
         SetVehicleEngineOn(vehicle, true, true, false)
+
+        -- Keep it unlocked for a moment in case the game re-applies defaults
+        CreateThread(function()
+            for _ = 1, 10 do
+                if not DoesEntityExist(vehicle) then return end
+                SetVehicleDoorsLocked(vehicle, 1)
+                SetVehicleDoorsLockedForAllPlayers(vehicle, false)
+                Wait(200)
+            end
+        end)
 
         jobCars[#jobCars + 1] = vehicle
     end

@@ -130,7 +130,7 @@ Config.Car = {
 
     -- Job locations: "x, y, z, heading" (vec4(...) also works)
     locations = {
-        '280.2333, -1349.6655, 31.9351, 143.0714',
+        '278.1351, -1356.0576, 31.9351, 150.5817',
     },
 
     -- Blips shown (blinking) at every location while the job is active
