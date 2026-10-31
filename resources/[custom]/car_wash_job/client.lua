@@ -168,24 +168,14 @@ end
 local jobBlips = {}
 local jobCars = {}
 
--- route.wash decides everything (locations, models, blips)
-local function washConfig()
-    return (route and route.wash) or {}
+-- Config.Car drives everything (locations, models, blips)
+local function carCfg()
+    return Config.Car or {}
 end
 
--- Where the customer cars spawn
+-- Where the job car spawns
 local function carLocations()
-    local wash = washConfig()
-    return (wash.car and wash.car.loca) or {}
-end
-
--- Where the blinking blips go (falls back to the car spots if empty)
-local function washLocations()
-    local wash = washConfig()
-    local loc = wash.carwash and wash.carwash.loc
-
-    if loc and #loc > 0 then return loc end
-    return carLocations()
+    return carCfg().locations or {}
 end
 
 -- Accepts "x, y, z, heading" strings or vec4 values
@@ -210,9 +200,9 @@ local function parseLocation(loc)
 end
 
 local function createJobBlips()
-    local blipCfg = washConfig().blip or {}
+    local blipCfg = carCfg().blip or {}
 
-    for _, loc in ipairs(washLocations()) do
+    for _, loc in ipairs(carLocations()) do
         local x, y, z = parseLocation(loc)
 
         if x then
@@ -240,9 +230,10 @@ end
 local function spawnJobCar(loc)
     if not jobActive then return end
 
-    local wash = washConfig()
-    local models = wash.car and wash.car.model
-    if not models or #models == 0 then return end
+    -- Model can be a single string or a list (one is picked at random)
+    local models = carCfg().model
+    if type(models) == 'string' then models = { models } end
+    if type(models) ~= 'table' or #models == 0 then return end
 
     local x, y, z, heading = parseLocation(loc)
     if not x then return end
@@ -267,7 +258,8 @@ local function spawnJobCar(loc)
         return
     end
 
-    local vehicle = CreateVehicle(model, x, y, z, heading or 0.0, false, false)
+    -- Networked so qbx_vehiclekeys can hand the driver keys (net id 0 = undrivable)
+    local vehicle = CreateVehicle(model, x, y, z, heading or 0.0, true, false)
     SetModelAsNoLongerNeeded(model)
 
     if vehicle and vehicle ~= 0 then
@@ -281,9 +273,11 @@ local function spawnJobCar(loc)
         SetVehicleDoorsLockedForPlayer(vehicle, PlayerId(), false)
         SetVehicleNeedsToBeHotwired(vehicle, false)
         for door = 0, 5 do
-            SetVehicleIndividualDoorsLocked(vehicle, door, 0)  -- 0 = unlocked
+            SetVehicleIndividualDoorsLocked(vehicle, door, 1)  -- 1 = unlocked
         end
 
+        SetVehicleUndriveable(vehicle, false)
+        SetVehicleKeepEngineOnWhenAbandoned(vehicle, true)
         SetVehicleEngineOn(vehicle, true, true, false)
 
         -- Keep it unlocked for a moment in case the game re-applies defaults

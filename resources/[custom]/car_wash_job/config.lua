@@ -110,3 +110,21 @@ Config.Boss = {
         stoppedMessage = 'You stopped the car wash job.',
     },
 }
+
+
+
+
+-- ============================================================
+--  Car Wash Job - Car
+-- ============================================================
+
+Config.Car = {
+    -- Model spawned when the job starts
+    model = 'tiptruck2',
+
+    -- Spawn spots: "x, y, z, heading" (vec4(...) also works)
+    locations = {
+        '-28.1574, -1082.2430, 26.6245, 61.9880',
+        -- add more locations here
+    },
+}
