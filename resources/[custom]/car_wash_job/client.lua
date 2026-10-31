@@ -168,6 +168,26 @@ end
 local jobBlips = {}
 local jobCars = {}
 
+-- route.wash decides everything (locations, models, blips)
+local function washConfig()
+    return (route and route.wash) or {}
+end
+
+-- Where the customer cars spawn
+local function carLocations()
+    local wash = washConfig()
+    return (wash.car and wash.car.loca) or {}
+end
+
+-- Where the blinking blips go (falls back to the car spots if empty)
+local function washLocations()
+    local wash = washConfig()
+    local loc = wash.carwash and wash.carwash.loc
+
+    if loc and #loc > 0 then return loc end
+    return carLocations()
+end
+
 -- Accepts "x, y, z, heading" strings or vec4 values
 local function parseLocation(loc)
     if type(loc) == 'string' then
@@ -190,10 +210,9 @@ local function parseLocation(loc)
 end
 
 local function createJobBlips()
-    local carCfg = Config.Car or {}
-    local blipCfg = carCfg.blip or {}
+    local blipCfg = washConfig().blip or {}
 
-    for _, loc in ipairs(carCfg.locations or {}) do
+    for _, loc in ipairs(washLocations()) do
         local x, y, z = parseLocation(loc)
 
         if x then
@@ -221,8 +240,8 @@ end
 local function spawnJobCar(loc)
     if not jobActive then return end
 
-    local carCfg = Config.Car or {}
-    local models = carCfg.models
+    local wash = washConfig()
+    local models = wash.car and wash.car.model
     if not models or #models == 0 then return end
 
     local x, y, z, heading = parseLocation(loc)
@@ -302,7 +321,7 @@ local function startJobLocations()
     removeJobEntities()
     createJobBlips()
 
-    local locations = (Config.Car or {}).locations or {}
+    local locations = carLocations()
 
     -- Spawn in a thread so the target callback never blocks
     CreateThread(function()
