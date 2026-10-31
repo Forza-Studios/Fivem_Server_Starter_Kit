@@ -230,8 +230,8 @@ end
 local function spawnJobCar(loc)
     if not jobActive then return end
 
-    -- Model can be a single string or a list (one is picked at random)
-    local models = carCfg().model
+    -- Model list is Config.Car.models (a string also works)
+    local models = carCfg().models or carCfg().model
     if type(models) == 'string' then models = { models } end
     if type(models) ~= 'table' or #models == 0 then return end
 

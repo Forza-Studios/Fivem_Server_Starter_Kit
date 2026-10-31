@@ -118,13 +118,32 @@ Config.Boss = {
 --  Car Wash Job - Car
 -- ============================================================
 
-Config.Car = {
-    -- Model spawned when the job starts
-    model = 'tiptruck2',
+-- A random model is picked from this list for every spawned car
+Config.Car = {}
 
-    -- Spawn spots: "x, y, z, heading" (vec4(...) also works)
-    locations = {
-        '-28.1574, -1082.2430, 26.6245, 61.9880',
-        -- add more locations here
-    },
+
+
+
+Config.Car.models = {
+    'tiptruck2',
+    -- add more models here
+}
+
+
+
+
+
+
+-- Spawn spots: "x, y, z, heading" (vec4(...) also works)
+Config.Car.locations = {
+    '-28.1574, -1082.2430, 26.6245, 61.9880',
+    -- add more locations here
+}
+
+
+
+
+config.carwash.locations = {
+    '-28.1574, -1082.2430, 26.6245, 61.9880',
+    -- add more locations here
 }
