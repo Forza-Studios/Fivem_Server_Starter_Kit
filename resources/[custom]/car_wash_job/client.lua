@@ -169,6 +169,10 @@ local jobBlips = {}
 local jobCars = {}
 local jobCarSet = {}
 
+-- Car wash animation state
+local washingVehicle = false
+local washedCars = {}
+
 -- Config.Car drives everything (locations, models, blips)
 local function carCfg()
     return Config.Car or {}
@@ -317,6 +321,7 @@ end
 
 local function removeJobEntities()
     removeJobBlips()
+    washedCars = {}
 
     for i = #jobCars, 1, -1 do
         local vehicle = jobCars[i]
@@ -360,6 +365,205 @@ local function startBlipSwitch()
     end)
 end
 
+-- ------------------------------------------------------------
+--  Automatic car wash (water particles + spinning roller machines)
+--  Particle/prop animation adapted from ixhal-carwash
+-- ------------------------------------------------------------
+local ptfxData = {
+    { dict = 'cut_test',  name = 'exp_hydrant', offset = { 0.0, 0.0, 4.0 }, rot = { 0.0, 180.0, 0.0 }, scale = 0.5 },
+    { dict = 'cut_test',  name = 'exp_hydrant', offset = { -0.5, 0.0, 4.0 }, rot = { 0.0, 180.0, 0.0 }, scale = 0.5 },
+    { dict = 'cut_test',  name = 'exp_hydrant', offset = { -1.0, 0.0, 4.0 }, rot = { 0.0, 180.0, 0.0 }, scale = 0.5 },
+    { dict = 'cut_test',  name = 'exp_hydrant', offset = { -1.5, 0.0, 4.0 }, rot = { 0.0, 180.0, 0.0 }, scale = 0.5 },
+    { dict = 'cut_test',  name = 'exp_hydrant', offset = { -2.0, 0.0, 4.0 }, rot = { 0.0, 180.0, 0.0 }, scale = 0.5 },
+    { dict = 'cut_test',  name = 'exp_hydrant', offset = { 0.5, 0.0, 4.0 }, rot = { 0.0, 180.0, 0.0 }, scale = 0.5 },
+    { dict = 'cut_test',  name = 'exp_hydrant', offset = { 1.0, 0.0, 4.0 }, rot = { 0.0, 180.0, 0.0 }, scale = 0.5 },
+    { dict = 'cut_test',  name = 'exp_hydrant', offset = { 1.5, 0.0, 4.0 }, rot = { 0.0, 180.0, 0.0 }, scale = 0.5 },
+    { dict = 'cut_test',  name = 'exp_hydrant', offset = { 2.0, 0.0, 4.0 }, rot = { 0.0, 180.0, 0.0 }, scale = 0.5 },
+
+    { dict = 'scr_fbi5a', name = 'scr_tunnel_vent_bubbles', offset = { 0.0, 0.0, 0.0 }, rot = { 0.0, 180.0, 0.0 }, scale = 2.0 },
+    { dict = 'scr_fbi5a', name = 'scr_tunnel_vent_bubbles', offset = { 0.0, -1.0, 0.0 }, rot = { 0.0, 180.0, 0.0 }, scale = 1.0 },
+    { dict = 'scr_fbi5a', name = 'scr_tunnel_vent_bubbles', offset = { 0.0, 1.0, 0.0 }, rot = { 0.0, 180.0, 0.0 }, scale = 1.0 },
+    { dict = 'scr_fbi5a', name = 'scr_tunnel_vent_bubbles', offset = { 0.0, -2.0, 0.0 }, rot = { 0.0, 180.0, 0.0 }, scale = 1.0 },
+    { dict = 'scr_fbi5a', name = 'scr_tunnel_vent_bubbles', offset = { 0.0, 2.0, 0.0 }, rot = { 0.0, 180.0, 0.0 }, scale = 1.0 },
+}
+
+local function requestParticleFx(dict)
+    RequestNamedPtfxAsset(dict)
+    local timeout = GetGameTimer() + 5000
+    while not HasNamedPtfxAssetLoaded(dict) and GetGameTimer() < timeout do
+        Wait(0)
+    end
+end
+
+local function loadPropModel(model)
+    if not IsModelInCdimage(model) then
+        print('^1[car_wash_job] Missing prop model for the car wash^7')
+        return
+    end
+
+    RequestModel(model)
+    local timeout = GetGameTimer() + 5000
+    while not HasModelLoaded(model) and GetGameTimer() < timeout do
+        Wait(10)
+    end
+end
+
+local function createWashProp(model, coords)
+    if not HasModelLoaded(model) then loadPropModel(model) end
+
+    local prop = CreateObjectNoOffset(model, coords.x, coords.y, coords.z, false, false, false)
+    SetEntityAsMissionEntity(prop, true, true)
+    FreezeEntityPosition(prop, true)
+    SetEntityCollision(prop, false, true)
+    return prop
+end
+
+local function playWashAnimation(vehicle)
+    if not DoesEntityExist(vehicle) then return end
+
+    local ptfxHandles = {}
+    local sideProps
+    local minOffsets, maxOffsets = GetModelDimensions(GetEntityModel(vehicle))
+
+    -- Spinning roller machines on both sides of the car
+    if Config.Carwash.useProps ~= false then
+        loadPropModel(`prop_carwash_roller_vert`)
+        local _, maxPropDim = GetModelDimensions(`prop_carwash_roller_vert`)
+
+        local leftOffset = GetOffsetFromEntityInWorldCoords(vehicle, minOffsets.x, minOffsets.y, minOffsets.z - 0.5)
+        leftOffset = vector3(leftOffset.x + maxPropDim.x, leftOffset.y, leftOffset.z)
+
+        local rightOffset = GetOffsetFromEntityInWorldCoords(vehicle, maxOffsets.x, minOffsets.y, minOffsets.z - 0.5)
+        rightOffset = vector3(rightOffset.x - maxPropDim.x, rightOffset.y, rightOffset.z)
+
+        sideProps = {
+            {
+                prop = createWashProp(`prop_carwash_roller_vert`, leftOffset),
+                offset = vector3(minOffsets.x - (maxPropDim.x - 0.2), minOffsets.y, maxPropDim.z / 2),
+            },
+            {
+                prop = createWashProp(`prop_carwash_roller_vert`, rightOffset),
+                offset = vector3(maxOffsets.x + (maxPropDim.x - 0.2), minOffsets.y, maxPropDim.z / 2),
+            },
+        }
+
+        for i = 1, #sideProps do
+            CreateThread(function()
+                while sideProps and sideProps[i] and DoesEntityExist(sideProps[i].prop) do
+                    local direction = (i == 1) and 0.75 or -0.75
+                    SetEntityHeading(sideProps[i].prop, (GetEntityHeading(sideProps[i].prop) + direction + 360) % 360)
+                    Wait(0)
+                end
+            end)
+        end
+    end
+
+    -- Water jets / bubbles attached to the car
+    for _, ptfx in ipairs(ptfxData) do
+        requestParticleFx(ptfx.dict)
+        UseParticleFxAssetNextCall(ptfx.dict)
+
+        local handle = StartNetworkedParticleFxLoopedOnEntity(
+            ptfx.name, vehicle,
+            ptfx.offset[1], ptfx.offset[2], ptfx.offset[3],
+            ptfx.rot[1], ptfx.rot[2], ptfx.rot[3],
+            ptfx.scale, false, false, false
+        )
+
+        ptfxHandles[#ptfxHandles + 1] = handle
+    end
+
+    local offset = minOffsets.y
+    local propOffset = minOffsets.y
+
+    local function moveEffects()
+        for i = 1, #ptfxHandles do
+            SetParticleFxLoopedOffsets(ptfxHandles[i], ptfxData[i].offset[1], offset, ptfxData[i].offset[3],
+                ptfxData[i].rot[1], ptfxData[i].rot[2], ptfxData[i].rot[3])
+        end
+
+        if sideProps then
+            for i = 1, #sideProps do
+                SetEntityCoordsNoOffset(sideProps[i].prop,
+                    GetOffsetFromEntityInWorldCoords(vehicle, sideProps[i].offset.x, propOffset, sideProps[i].offset.z))
+            end
+        end
+    end
+
+    -- Sweep from front to back
+    while offset < maxOffsets.y and DoesEntityExist(vehicle) do
+        moveEffects()
+        offset = offset + 0.0055
+        propOffset = propOffset + 0.0055
+        Wait(0)
+    end
+
+    -- Sweep back again (double clean)
+    if Config.Carwash.doubleClean ~= false then
+        while minOffsets.y < offset and DoesEntityExist(vehicle) do
+            moveEffects()
+            offset = offset - 0.0055
+            propOffset = propOffset - 0.0055
+            Wait(0)
+        end
+    end
+
+    for i = 1, #ptfxHandles do
+        StopParticleFxLooped(ptfxHandles[i], false)
+    end
+
+    if sideProps then
+        for i = 1, #sideProps do
+            if DoesEntityExist(sideProps[i].prop) then
+                DeleteEntity(sideProps[i].prop)
+            end
+        end
+        sideProps = nil
+    end
+end
+
+local function washVehicle(vehicle)
+    if washingVehicle or not DoesEntityExist(vehicle) then return end
+    washingVehicle = true
+
+    FreezeEntityPosition(vehicle, true)
+    playWashAnimation(vehicle)
+
+    SetVehicleDirtLevel(vehicle, 0.0)
+    WashDecalsFromVehicle(vehicle, 1.0)
+    FreezeEntityPosition(vehicle, false)
+
+    washingVehicle = false
+    notify('Vehicle washed!', 'success')
+end
+
+-- Watch the job car and wash it automatically when it reaches a wash spot
+local function startAutoWash()
+    CreateThread(function()
+        while jobActive do
+            local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
+
+            if vehicle ~= 0 and jobCarSet[vehicle] and not washingVehicle and not washedCars[vehicle] then
+                local coords = GetEntityCoords(vehicle)
+
+                for _, loc in ipairs(carwashLocations()) do
+                    local x, y, z = parseLocation(loc)
+
+                    if x and #(coords - vector3(x, y, z)) <= (Config.Carwash.radius or 4.0) then
+                        washedCars[vehicle] = true
+                        CreateThread(function()
+                            washVehicle(vehicle)
+                        end)
+                        break
+                    end
+                end
+            end
+
+            Wait(500)
+        end
+    end)
+end
+
 local function startJobLocations()
     removeJobEntities()
 
@@ -375,6 +579,9 @@ local function startJobLocations()
 
     -- Blips switch between car spots and wash spots automatically
     startBlipSwitch()
+
+    -- Wash the car as soon as it reaches a wash spot
+    startAutoWash()
 end
 
 -- ------------------------------------------------------------

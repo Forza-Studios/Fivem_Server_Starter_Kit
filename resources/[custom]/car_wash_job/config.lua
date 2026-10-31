@@ -125,7 +125,7 @@ Config.Car = {}
 
 
 Config.Car.models = {
-    'ev_scooty',
+    'acty',
     -- add more models here
 }
 
@@ -154,3 +154,8 @@ Config.Carwash.locations = {
     '21.9085, -1391.9541, 29.3285, 267.8849',
     -- add more locations here
 }
+
+-- Auto-wash settings
+Config.Carwash.radius = 4.0       -- distance (metres) from the location that triggers the wash
+Config.Carwash.useProps = true    -- spawn + spin the roller machines
+Config.Carwash.doubleClean = true -- sweep the water back over the car (2x longer)
