@@ -5,7 +5,7 @@
     if (!video) return;
 
     function tryPlay() {
-        video.muted = true;
+        video.muted = false;
         var p = video.play();
         if (p !== undefined) {
             p.catch(function (e) { console.log('bg autoplay blocked:', e); });
